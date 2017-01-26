@@ -1,0 +1,3 @@
+menedyl_snowtricks_view:
+    path:     /figure
+    defaults: { _controller: MenedylSnowtricksBundle:Default:view }
