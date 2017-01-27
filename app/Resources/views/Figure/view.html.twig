@@ -1,0 +1,62 @@
+{% extends "layout.html.twig" %}
+
+
+{% block stylesheets %}
+
+    {{ parent() }}
+    <link href="{{ asset("css/view.css.twig") }}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="figure">
+
+        <h3 class="name_figure">Stalefish</h3>
+        <br>
+
+        <img class="img_figure"
+             src="http://snowboarding.transworld.net/wp-content/blogs.dir/442/files/2015/05/Stale_Johnny_Oconnor_Back_Fenelon.jpg"
+             alt="Stalefish">
+
+
+        <br>
+        <br>
+
+
+        <div class="rating_figure">
+
+
+            {% for i in 1..rating %}
+                <span class="glyphicon glyphicon-star" style="color: #0088CC"></span>
+            {% endfor %}
+
+
+            {% if rating < 5 %}
+
+                {% set star_empty = 5 - rating %}
+
+                {% for i in 1..star_empty %}
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                {% endfor %}
+
+            {% endif %}
+
+        </div>
+
+        <br>
+
+        <p>
+            Saisie de la carre backside de la planche entre les deux pieds avec la main arrière
+        </p>
+
+        <br>
+
+        <p class="group_figure">
+            <strong>Groupe de figure :</strong> <a href="#">Grabs</a>
+        </p>
+
+    </div>
+
+{% endblock %}

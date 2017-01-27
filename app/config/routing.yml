@@ -1,3 +1,8 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+
+app_view:
+    path:     /figure
+    defaults: { _controller: AppBundle:Default:view}
