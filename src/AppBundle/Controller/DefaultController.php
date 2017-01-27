@@ -16,6 +16,6 @@ class DefaultController extends Controller
     {
         $rating = 2;
 
-        return $this->render('Figure/view.html.twig', array('rating' => $rating));
+        return $this->render('view.html.twig', array('rating' => $rating));
     }
 }
