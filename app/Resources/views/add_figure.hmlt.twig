@@ -1,0 +1,54 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+    <div class="body">
+
+
+        {{ form_start(form, {'attr' : {'class' : ''}}) }}
+
+
+        <fieldset>
+            <legend>Ajouter une figure</legend>
+
+            <div class="col-sm-6">
+
+                <div class="form-group form-inline">
+                    {{ form_label(form.name, "Nom de la figure :", {"label_attr" : {"class" : "control-label"}}) }}
+                    {{ form_widget(form.name, {"attr" : {"class" : "form-control"}}) }}
+
+                </div>
+
+                <div class="form-group form-inline">
+                    {{ form_label(form.content, "Description de la figure :", {"label_attr" : {"class" : "control-label"}}) }}
+                    {{ form_widget(form.content, {"attr" : {"class" : "form-control"}}) }}
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+
+                <div class="form-group form-inline">
+                    {{ form_label(form.groupFigure, "Goupe de figure :", {"label_attr" : {"class" : "control-label"}}) }}
+                    {{ form_widget(form.groupFigure, {"attr" : {"class" : "form-control"}}) }}
+                </div>
+
+                <div class="form-group form-inline">
+                    {{ form_label(form.rating, "Difficulté de la figure :", {"label_attr" : {"class" : "control-label"}}) }}
+                    {{ form_widget(form.rating, {"attr" : {"class" : "form-control"}}) }}
+                </div>
+
+
+            </div>
+
+            {{ form_widget(form.Valider, {"attr" : {"class" : "btn btn-primary"}}) }}
+
+            {{ form_rest(form) }}
+
+        </fieldset>
+
+        {{ form_end(form) }}
+
+    </div>
+
+
+{% endblock %}
