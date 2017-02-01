@@ -25,10 +25,33 @@
 
     {% include "menu.html.twig" %}
 
+    {% for message in app.session.flashbag.get('info') %}
 
-    {% block body %}
-    {% endblock %}
+    <div class="alert alert-info">
+        {{ message }}
+    </div>
 
+    {% endfor %}
+
+    <div class="row">
+
+        <div class="col-sm-4">
+
+            {% block news %}
+            {% endblock %}
+
+        </div>
+
+        <div class="col-sm-8">
+
+            {% block body %}
+            {% endblock %}
+
+
+        </div>
+
+
+    </div>
 </div>
 </body>
 

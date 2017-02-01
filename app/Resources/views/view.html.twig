@@ -3,9 +3,9 @@
 
 {% block body %}
 
-    <div id="figure">
+    <div id="figure" class="body">
 
-        <h3 class="name_figure">Stalefish</h3>
+        <h3 class="name_figure">{{ figure.name }}</h3>
         <br>
 
         <img class="img_figure"
@@ -20,14 +20,14 @@
         <div class="rating_figure">
 
 
-            {% for i in 1..rating %}
+            {% for i in 1..figure.rating %}
                 <span class="glyphicon glyphicon-star" style="color: #0088CC"></span>
             {% endfor %}
 
 
-            {% if rating < 5 %}
+            {% if figure.rating < 5 %}
 
-                {% set star_empty = 5 - rating %}
+                {% set star_empty = 5 - figure.rating %}
 
                 {% for i in 1..star_empty %}
                     <span class="glyphicon glyphicon-star-empty"></span>
@@ -40,13 +40,13 @@
         <br>
 
         <p>
-            Saisie de la carre backside de la planche entre les deux pieds avec la main arrière
+            {{ figure.content }}
         </p>
 
         <br>
 
         <p class="group_figure">
-            <strong>Groupe de figure :</strong> <a href="#">Grabs</a>
+            <strong>Groupe de figure :</strong> <a href="#">{{ figure.groupFigure }}</a>
         </p>
 
     </div>
