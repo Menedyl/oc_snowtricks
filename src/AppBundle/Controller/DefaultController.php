@@ -28,8 +28,13 @@ class DefaultController extends Controller
             throw new NotFoundHttpException("La figure demandé n'existe pas.");
         }
 
+        $images = $em->getRepository("AppBundle:Image")->findBy(array('figure' => $id));
 
-        return $this->render('view.html.twig', array('figure' => $figure));
+
+        return $this->render('view.html.twig', array(
+            'figure' => $figure,
+            'images' => $images
+        ));
     }
 
     /**

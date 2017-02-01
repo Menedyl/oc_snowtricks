@@ -3,7 +3,9 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Figure;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
@@ -12,12 +14,10 @@ use Doctrine\Common\Persistence\ObjectManager;
  * Date: 01/02/2017
  * Time: 13:34
  */
-class LoadFigure implements FixtureInterface
+class LoadFigure extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        // TODO: Implement load() method.
-
 
         $figure1 = new Figure();
         $figure1->setName("Pendule");
@@ -58,12 +58,23 @@ class LoadFigure implements FixtureInterface
         $figure3->setRating(1);
         $figure3->setGroupFigure("Groupe 3");
 
+
         $manager->persist($figure1);
         $manager->persist($figure2);
         $manager->persist($figure3);
 
+
         $manager->flush();
 
+        $this->addReference('figure1', $figure1);
+        $this->addReference('figure2', $figure2);
+        $this->addReference('figure3', $figure3);
+
+    }
+
+    public function getOrder()
+    {
+        return 1;
     }
 
 }
