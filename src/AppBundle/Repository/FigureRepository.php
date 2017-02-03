@@ -16,8 +16,10 @@ class FigureRepository extends \Doctrine\ORM\EntityRepository
         return $this->createQueryBuilder('e')
             ->where('e.id = :id')
             ->setParameter('id', $id)
-            ->innerJoin('e.images', 'img')
-            ->addSelect('img')
+            ->innerJoin('e.images', 'images')
+            ->addSelect('images')
+            ->leftJoin('e.videos', 'videos')
+            ->addSelect('videos')
             ->getQuery()
             ->getOneOrNullResult();
 

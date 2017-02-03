@@ -69,11 +69,17 @@ class Figure
      */
     private $images;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Video", mappedBy="figure")
+     */
+    private $videos;
+
 
     public function __construct()
     {
         $this->dateCreate = new \DateTime();
         $this->images = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
 
@@ -265,5 +271,39 @@ class Figure
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * Add video
+     *
+     * @param \AppBundle\Entity\Video $video
+     *
+     * @return Figure
+     */
+    public function addVideo(\AppBundle\Entity\Video $video)
+    {
+        $this->videos[] = $video;
+
+        return $this;
+    }
+
+    /**
+     * Remove video
+     *
+     * @param \AppBundle\Entity\Video $video
+     */
+    public function removeVideo(\AppBundle\Entity\Video $video)
+    {
+        $this->videos->removeElement($video);
+    }
+
+    /**
+     * Get videos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVideos()
+    {
+        return $this->videos;
     }
 }
