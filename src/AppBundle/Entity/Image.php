@@ -43,7 +43,7 @@ class Image
     private $dateCreate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Figure")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Figure", inversedBy="images")
      * @ORM\JoinColumn(nullable=false)
      */
     private $figure;

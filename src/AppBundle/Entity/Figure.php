@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -63,10 +64,16 @@ class Figure
      */
     private $dateModif;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="figure")
+     */
+    private $images;
+
 
     public function __construct()
     {
         $this->dateCreate = new \DateTime();
+        $this->images = new ArrayCollection();
     }
 
 
@@ -222,5 +229,41 @@ class Figure
         $this->dateModif = $dateModif;
 
         return $this;
+    }
+
+    /**
+     * Add image
+     *
+     * @param \AppBundle\Entity\Image $image
+     *
+     * @return Figure
+     */
+    public function addImage(\AppBundle\Entity\Image $image)
+    {
+        $this->images[] = $image;
+
+        $image->setFigure($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove image
+     *
+     * @param \AppBundle\Entity\Image $image
+     */
+    public function removeImage(\AppBundle\Entity\Image $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 }

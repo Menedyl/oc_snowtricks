@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class FigureRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findWithImages($id)
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.id = :id')
+            ->setParameter('id', $id)
+            ->innerJoin('e.images', 'img')
+            ->addSelect('img')
+            ->getQuery()
+            ->getOneOrNullResult();
+
+
+    }
 }

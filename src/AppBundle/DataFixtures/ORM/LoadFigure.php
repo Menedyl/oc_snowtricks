@@ -19,6 +19,9 @@ class LoadFigure extends AbstractFixture implements FixtureInterface, OrderedFix
     public function load(ObjectManager $manager)
     {
 
+        /**
+         * @var Figure $figure1
+         */
         $figure1 = new Figure();
         $figure1->setName("Pendule");
         $figure1->setContent("La technique de la feuille morte est une alternative au virage, plus sécurisante pour les débutants, ou sur
@@ -29,7 +32,9 @@ class LoadFigure extends AbstractFixture implements FixtureInterface, OrderedFix
         $figure1->setRating(2);
         $figure1->setGroupFigure("Groupe 1");
 
-
+        /**
+         * @var Figure $figure2
+         */
         $figure2 = new Figure();
         $figure2->setName("Traversée");
         $figure2->setContent("Comme en ski, il s'agit d'un déplacement du snowboarder et de sa planche dans une 
@@ -39,7 +44,9 @@ class LoadFigure extends AbstractFixture implements FixtureInterface, OrderedFix
         $figure2->setRating(1);
         $figure2->setGroupFigure("Groupe 2");
 
-
+        /**
+         * @var Figure $figure3
+         */
         $figure3 = new Figure();
         $figure3->setName("Virage de base");
         $figure3->setContent("Il s'agit simplement d'un pivotement de la planche en dérapant sur la neige d'une position en appui sur un

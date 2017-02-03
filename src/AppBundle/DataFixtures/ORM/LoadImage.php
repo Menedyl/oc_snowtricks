@@ -9,6 +9,7 @@
 namespace AppBundle\DataFixtures\ORM;
 
 
+use AppBundle\Entity\Figure;
 use AppBundle\Entity\Image;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -19,18 +20,28 @@ class LoadImage extends AbstractFixture implements FixtureInterface, OrderedFixt
 {
     public function load(ObjectManager $manager)
     {
+        /**
+         * @var Image $image1
+         */
         $image1 = new Image();
         $image1->setUrl("https://i.ytimg.com/vi/73WMfG5Stqw/maxresdefault.jpg");
         $image1->setAlt("Pendule");
         $image1->setFigure($this->getReference('figure1'));
 
-
+        /**
+         * @var Image $image2
+         */
         $image2 = new Image();
         $image2->setUrl("https://www.weareucpa.com/wp-content/uploads/2016/01/trajectoire-traversee-ski-snowboard-e1452771097618.jpg");
         $image2->setAlt("Traversée");
-        $image2->setFigure($this->getReference('figure2'));
 
+        /** @var Figure $figure2 */
+        $figure2 = $this->getReference('figure2');
+        $image2->setFigure($figure2);
 
+        /**
+         * @var Image $image3
+         */
         $image3 = new Image();
         $image3->setUrl("http://static10.gestionaweb.cat/803/pwimg-1024/marc-pladebaqueira.jpg");
         $image3->setAlt("Virage de base");
