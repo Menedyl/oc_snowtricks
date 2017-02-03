@@ -3,7 +3,9 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Figure;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
@@ -12,13 +14,14 @@ use Doctrine\Common\Persistence\ObjectManager;
  * Date: 01/02/2017
  * Time: 13:34
  */
-class LoadFigure implements FixtureInterface
+class LoadFigure extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        // TODO: Implement load() method.
 
-
+        /**
+         * @var Figure $figure1
+         */
         $figure1 = new Figure();
         $figure1->setName("Pendule");
         $figure1->setContent("La technique de la feuille morte est une alternative au virage, plus sécurisante pour les débutants, ou sur
@@ -29,7 +32,9 @@ class LoadFigure implements FixtureInterface
         $figure1->setRating(2);
         $figure1->setGroupFigure("Groupe 1");
 
-
+        /**
+         * @var Figure $figure2
+         */
         $figure2 = new Figure();
         $figure2->setName("Traversée");
         $figure2->setContent("Comme en ski, il s'agit d'un déplacement du snowboarder et de sa planche dans une 
@@ -39,7 +44,9 @@ class LoadFigure implements FixtureInterface
         $figure2->setRating(1);
         $figure2->setGroupFigure("Groupe 2");
 
-
+        /**
+         * @var Figure $figure3
+         */
         $figure3 = new Figure();
         $figure3->setName("Virage de base");
         $figure3->setContent("Il s'agit simplement d'un pivotement de la planche en dérapant sur la neige d'une position en appui sur un
@@ -58,12 +65,23 @@ class LoadFigure implements FixtureInterface
         $figure3->setRating(1);
         $figure3->setGroupFigure("Groupe 3");
 
+
         $manager->persist($figure1);
         $manager->persist($figure2);
         $manager->persist($figure3);
 
+
         $manager->flush();
 
+        $this->addReference('figure1', $figure1);
+        $this->addReference('figure2', $figure2);
+        $this->addReference('figure3', $figure3);
+
+    }
+
+    public function getOrder()
+    {
+        return 1;
     }
 
 }

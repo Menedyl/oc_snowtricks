@@ -20,14 +20,13 @@ class DefaultController extends Controller
         $em = $this->getDoctrine();
 
         /**
-         * @var Figure
+         * @var Figure $figure
          */
-        $figure = $em->getRepository("AppBundle:Figure")->find($id);
+        $figure = $em->getRepository("AppBundle:Figure")->findWithImages($id);
 
         if ($figure === null){
             throw new NotFoundHttpException("La figure demandé n'existe pas.");
         }
-
 
         return $this->render('view.html.twig', array('figure' => $figure));
     }
@@ -38,6 +37,9 @@ class DefaultController extends Controller
     public function addAction(Request $request)
     {
 
+        /**
+         * @var Figure $figure
+         */
         $figure = new Figure();
 
         $form = $this->createForm(FigureType::class, $figure);

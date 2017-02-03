@@ -8,10 +8,13 @@
         <h3 class="name_figure">{{ figure.name }}</h3>
         <br>
 
-        <img class="img_figure"
-             src="http://snowboarding.transworld.net/wp-content/blogs.dir/442/files/2015/05/Stale_Johnny_Oconnor_Back_Fenelon.jpg"
-             alt="Stalefish">
+        {% for image in figure.images %}
 
+            <img class="img_figure"
+                 src="{{ image.url }}"
+                 alt="{{ image.alt }}">
+
+        {% endfor %}
 
         <br>
         <br>
