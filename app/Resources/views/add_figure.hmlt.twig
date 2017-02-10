@@ -8,39 +8,75 @@
 
 
         <fieldset>
+
             <legend>Ajouter une figure</legend>
 
-            <div class="col-sm-6">
+            <div class="row">
 
-                <div class="form-group form-inline">
-                    {{ form_label(form.name, "Nom de la figure :", {"label_attr" : {"class" : "control-label"}}) }}
-                    {{ form_widget(form.name, {"attr" : {"class" : "form-control"}}) }}
+                <div class="col-sm-6">
+
+                    <div class="form-group">
+
+                        {{ form_row(form.name) }}
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        {{ form_row(form.content) }}
+
+                    </div>
+
 
                 </div>
 
-                <div class="form-group form-inline">
-                    {{ form_label(form.content, "Description de la figure :", {"label_attr" : {"class" : "control-label"}}) }}
-                    {{ form_widget(form.content, {"attr" : {"class" : "form-control"}}) }}
+                <div class="col-sm-6">
+
+                    <div class="form-group">
+
+                        {{ form_row(form.groupFigure) }}
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        {{ form_row(form.rating) }}
+
+                    </div>
+
+
                 </div>
 
             </div>
 
-            <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
 
-                <div class="form-group form-inline">
-                    {{ form_label(form.groupFigure, "Goupe de figure :", {"label_attr" : {"class" : "control-label"}}) }}
-                    {{ form_widget(form.groupFigure, {"attr" : {"class" : "form-control"}}) }}
+                        {{ form_row(form.images) }}
+
+                        <a href="#" id="add_image" class="btn btn-primary">Ajouter une image</a>
+
+                    </div>
+
                 </div>
 
-                <div class="form-group form-inline">
-                    {{ form_label(form.rating, "Difficulté de la figure :", {"label_attr" : {"class" : "control-label"}}) }}
-                    {{ form_widget(form.rating, {"attr" : {"class" : "form-control"}}) }}
-                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
 
+                        {{ form_row(form.videos) }}
+
+                        <a href="#" id="add_video" class="btn btn-primary">Ajouter une video</a>
+
+
+                    </div>
+                </div>
 
             </div>
 
-            <button type="submit" class="btn btn-primary">Valider</button>
+            <button type="submit" id="btn_valid" class="btn btn-primary">Valider</button>
 
             {{ form_rest(form) }}
 
@@ -51,4 +87,93 @@
     </div>
 
 
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            var $formImage = $("div#appbundle_figure_images");
+            var indexImage = 0;
+
+            var $formVideo = $("div#appbundle_figure_videos");
+            var indexVideo = 0;
+
+
+            if (indexImage == 0) {
+                addImage($formImage);
+            }
+
+
+            $("#add_image").click(function () {
+                addImage($formImage);
+                return false;
+            });
+
+
+            $("#add_video").click(function () {
+                addVideo($formVideo);
+                return false;
+            });
+
+
+            function addImage($formImage) {
+
+
+                var fieldsImage = $formImage.attr("data-prototype")
+                    .replace(/__name__/g, indexImage +1);
+
+
+                var $fieldsImage = $(fieldsImage);
+
+
+                $formImage.append($fieldsImage);
+
+                if (indexImage !== 0) {
+                    addDeleteLink($fieldsImage);
+                }
+
+
+
+                indexImage++;
+            }
+
+
+            function addVideo($formVideo) {
+
+                var fieldsVideo = $formVideo.attr("data-prototype")
+                    .replace(/__name__/g, indexVideo + 1);
+
+                var $fieldsVideo = $(fieldsVideo);
+
+                $formVideo.append($fieldsVideo);
+
+                addDeleteLink($fieldsVideo);
+
+                indexVideo++;
+            }
+
+            function addDeleteLink($fields) {
+
+                var $deleteLink = $('<a href="#" class="btn btn-danger del_field">Supprimer</a>');
+
+                $fields.children(".well").append($deleteLink);
+
+                console.log($fields);
+
+                $deleteLink.click(function () {
+                    $fields.remove();
+                    return false;
+                });
+            }
+
+
+        })
+        ;
+
+    </script>
 {% endblock %}

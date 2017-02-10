@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,12 +66,16 @@ class Figure
     private $dateModif;
 
     /**
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="figure")
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="figure", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity="Video", mappedBy="figure")
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Video", mappedBy="figure", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $videos;
 
@@ -283,6 +288,8 @@ class Figure
     public function addVideo(\AppBundle\Entity\Video $video)
     {
         $this->videos[] = $video;
+
+        $video->setFigure($this);
 
         return $this;
     }
