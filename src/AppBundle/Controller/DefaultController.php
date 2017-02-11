@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Figure;
 use AppBundle\Form\FigureType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -13,29 +14,23 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/figure/{id}", name="figure")
-     */
+    /** @Route("/figure/{id}", name="figure") */
     public function viewAction($id)
     {
 
         $em = $this->getDoctrine();
 
-        /**
-         * @var Figure $figure
-         */
-        $figure = $em->getRepository("AppBundle:Figure")->findWithImages($id);
+        /** @var Figure $figure */
+        $figure = $em->getRepository("AppBundle:Figure")->findWithAll($id);
 
-        if ($figure === null) {
+        if (!$figure) {
             throw new NotFoundHttpException("La figure demandé n'existe pas.");
         }
 
         return $this->render('view.html.twig', array('figure' => $figure));
     }
 
-    /**
-     * @Route("/add", name="add_figure")
-     */
+    /** @Route("/add", name="add_figure") */
     public function addAction(Request $request)
     {
 
@@ -47,21 +42,9 @@ class DefaultController extends Controller
         /**
          * @var Form $form
          */
-        $form = $this->createForm(FigureType::class, $figure);
+        $addForm = $this->createForm(FigureType::class, $figure);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-
-            if (count($figure->getImages()) > 0) {
-                foreach ($figure->getImages() as $image) {
-                    $figure->addImage($image);
-                }
-            }
-
-            if (count($figure->getVideos()) > 0){
-                foreach ($figure->getVideos() as $video){
-                    $figure->addVideo($video);
-                }
-            }
+        if ($request->isMethod('POST') && $addForm->handleRequest($request)->isValid()) {
 
 
             $em = $this->getDoctrine()->getManager();
@@ -76,7 +59,60 @@ class DefaultController extends Controller
 
         }
 
-        return $this->render("add_figure.hmlt.twig", array("form" => $form->createView()));
+        return $this->render("add_figure.hmlt.twig", array(
+            "form" => $addForm->createView(),
+            "add" => true
+        ));
+
+    }
+
+    /** @Route("/edit/{id}", name="edit_figure") */
+    public function editAction(Request $request, $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+
+        /** @var Figure $figure */
+        $figure = $em->getRepository("AppBundle:Figure")->findWithAll($id);
+
+
+        if (!$figure) {
+            throw new NotFoundHttpException("La figure demandé n'existe pas");
+        }
+
+        $originalImages = new ArrayCollection();
+
+        foreach ($figure->getImages() as $image) {
+            $originalImages->add($image);
+        }
+
+
+        /** @var Form $form */
+        $editForm = $this->createForm(FigureType::class, $figure);
+
+        if ($request->isMethod("POST") && $editForm->handleRequest($request)->isValid()) {
+
+            foreach ($originalImages as $image) {
+
+                if (!$figure->getImages()->contains($image)) {
+
+                    $em->remove($image);
+                }
+            }
+
+            $em->persist($figure);
+            $em->flush();
+
+            return $this->redirectToRoute("figure", array("id" => $figure->getId()));
+
+        }
+
+
+        return $this->render("edit_figure.html.twig", array(
+            "form" => $editForm->CreateView(),
+            "edit" => true
+            ));
 
 
     }

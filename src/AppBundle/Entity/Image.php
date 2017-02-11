@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="image")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Image
 {
@@ -54,6 +55,37 @@ class Image
         $this->dateCreate = new \DateTime();
     }
 
+    /**
+     * @ORM\PreRemove
+     */
+    public function removeEntity()
+    {
+        $this->getFigure()->setDateModif(new \DateTime());
+    }
+
+    /**
+     * Get figure
+     *
+     * @return \AppBundle\Entity\Figure
+     */
+    public function getFigure()
+    {
+        return $this->figure;
+    }
+
+    /**
+     * Set figure
+     *
+     * @param \AppBundle\Entity\Figure $figure
+     *
+     * @return Image
+     */
+    public function setFigure(Figure $figure)
+    {
+        $this->figure = $figure;
+
+        return $this;
+    }
 
     /**
      * Get id
@@ -135,30 +167,5 @@ class Image
         $this->dateCreate = $dateCreate;
 
         return $this;
-    }
-
-
-    /**
-     * Set figure
-     *
-     * @param \AppBundle\Entity\Figure $figure
-     *
-     * @return Image
-     */
-    public function setFigure(Figure $figure)
-    {
-        $this->figure = $figure;
-
-        return $this;
-    }
-
-    /**
-     * Get figure
-     *
-     * @return \AppBundle\Entity\Figure
-     */
-    public function getFigure()
-    {
-        return $this->figure;
     }
 }

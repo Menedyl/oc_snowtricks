@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="video")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\VideoRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Video
 {
@@ -53,87 +54,22 @@ class Video
         $this->dateCreate = new \DateTime();
     }
 
-
     /**
-     * Get id
-     *
-     * @return int
+     * @ORM\PreRemove
      */
-    public function getId()
+    public function removeVideo()
     {
-        return $this->id;
+        $this->getFigure()->setDateModif(new \DateTime());
     }
 
     /**
-     * Set url
+     * Get figure
      *
-     * @param string $url
-     *
-     * @return Video
+     * @return \AppBundle\Entity\Figure
      */
-    public function setUrl($url)
+    public function getFigure()
     {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
-     * Set alt
-     *
-     * @param string $alt
-     *
-     * @return Video
-     */
-    public function setAlt($alt)
-    {
-        $this->alt = $alt;
-
-        return $this;
-    }
-
-    /**
-     * Get alt
-     *
-     * @return string
-     */
-    public function getAlt()
-    {
-        return $this->alt;
-    }
-
-    /**
-     * Set dateCreate
-     *
-     * @param \DateTime $dateCreate
-     *
-     * @return Video
-     */
-    public function setDateCreate($dateCreate)
-    {
-        $this->dateCreate = $dateCreate;
-
-        return $this;
-    }
-
-    /**
-     * Get dateCreate
-     *
-     * @return \DateTime
-     */
-    public function getDateCreate()
-    {
-        return $this->dateCreate;
+        return $this->figure;
     }
 
     /**
@@ -151,12 +87,84 @@ class Video
     }
 
     /**
-     * Get figure
+     * Get id
      *
-     * @return \AppBundle\Entity\Figure
+     * @return int
      */
-    public function getFigure()
+    public function getId()
     {
-        return $this->figure;
+        return $this->id;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return Video
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get alt
+     *
+     * @return string
+     */
+    public function getAlt()
+    {
+        return $this->alt;
+    }
+
+    /**
+     * Set alt
+     *
+     * @param string $alt
+     *
+     * @return Video
+     */
+    public function setAlt($alt)
+    {
+        $this->alt = $alt;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreate
+     *
+     * @return \DateTime
+     */
+    public function getDateCreate()
+    {
+        return $this->dateCreate;
+    }
+
+    /**
+     * Set dateCreate
+     *
+     * @param \DateTime $dateCreate
+     *
+     * @return Video
+     */
+    public function setDateCreate($dateCreate)
+    {
+        $this->dateCreate = $dateCreate;
+
+        return $this;
     }
 }

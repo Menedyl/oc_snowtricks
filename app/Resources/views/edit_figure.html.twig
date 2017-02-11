@@ -1,12 +1,10 @@
 {% extends "layout.html.twig" %}
 
-
 {% block body %}
 
     {% include "form.html.twig" %}
 
 {% endblock %}
-
 
 {% block scripts %}
 
@@ -16,24 +14,31 @@
 
 
             var $formImage = $("div#appbundle_figure_images");
-            var indexImage = 0;
+            var indexImage = $formImage.find("div.well").length;
+
+            console.log(indexImage);
 
             var $formVideo = $("div#appbundle_figure_videos");
-            var indexVideo = 0;
+            var indexVideo = $formVideo.find("div.well").length;
 
+            console.log(indexVideo);
 
             if (indexImage == 0) {
                 addImage($formImage);
             }
 
+            $formImage.children("div").each(function(){addDeleteLink($(this))});
 
-            $("#add_image").click(function () {
+
+            $("#add_image").click(function (e) {
+                e.preventDefault();
                 addImage($formImage);
                 return false;
             });
 
 
-            $("#add_video").click(function () {
+            $("#add_video").click(function (e) {
+                e.preventDefault();
                 addVideo($formVideo);
                 return false;
             });
@@ -80,15 +85,18 @@
 
                 $fields.children(".well").append($deleteLink);
 
-                $deleteLink.click(function () {
+                $deleteLink.click(function (e) {
+                    e.preventDefault();
                     $fields.remove();
                     return false;
                 });
             }
 
-
         })
         ;
 
     </script>
+
+
+
 {% endblock %}

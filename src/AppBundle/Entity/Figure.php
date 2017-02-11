@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="figure")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FigureRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Figure
 {
@@ -87,6 +88,14 @@ class Figure
         $this->videos = new ArrayCollection();
     }
 
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updateDate()
+    {
+
+        $this->setDateModif(new \DateTime());
+    }
 
     /**
      * Get id
@@ -251,7 +260,7 @@ class Figure
      */
     public function addImage(\AppBundle\Entity\Image $image)
     {
-        $this->images[] = $image;
+        $this->images->add($image);
 
         $image->setFigure($this);
 
@@ -287,7 +296,7 @@ class Figure
      */
     public function addVideo(\AppBundle\Entity\Video $video)
     {
-        $this->videos[] = $video;
+        $this->videos->add($video);
 
         $video->setFigure($this);
 

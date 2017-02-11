@@ -53,6 +53,7 @@ class FigureType extends AbstractType
                 'attr' => array('class' => 'form-control')
             ))
             ->add('images', CollectionType::class, array(
+                'by_reference' => false,
                 'entry_type' => ImageType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -64,6 +65,7 @@ class FigureType extends AbstractType
                 )
             ))
             ->add('videos', CollectionType::class, array(
+                'by_reference' => false,
                 'entry_type' => VideoType::class,
                 'allow_add' => true,
                 'allow_delete' => true,

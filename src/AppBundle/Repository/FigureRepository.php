@@ -11,7 +11,7 @@ namespace AppBundle\Repository;
 class FigureRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function findWithImages($id)
+    public function findWithAll($id)
     {
         return $this->createQueryBuilder('e')
             ->where('e.id = :id')
@@ -22,7 +22,6 @@ class FigureRepository extends \Doctrine\ORM\EntityRepository
             ->addSelect('videos')
             ->getQuery()
             ->getOneOrNullResult();
-
-
     }
+
 }
