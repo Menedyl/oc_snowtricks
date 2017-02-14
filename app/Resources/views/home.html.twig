@@ -1,0 +1,114 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+
+    <p id="description_site">
+        Le snowboard est un sport de glisse
+        sur neige. L'équipement se compose d'une planche de snowboard, d'une paire de fixations et d'une paire de
+        bottes adaptées. La position sur la planche est proche de celle du skateur : de profil, les
+        pieds posés sur une ligne en travers de la planche, l'un derrière l'autre.
+    </p>
+
+    <div class="col-sm-6">
+        {% for figure in figures %}
+            {% if loop.index is not divisible by(2) %}
+                <div class="home_figure col-sm-12">
+                    <div class="col-sm-4">
+
+                        <img class="home_image" src="{{ figure.images[0].url }}">
+
+                    </div>
+
+                    <div class="home_descript_figure col-sm-5">
+
+                        <a href="{{ path("figure", {'id' : figure.id}) }}"><h4>{{ figure.name }}</h4></a>
+
+                        <div class="rating_figure">
+
+                            {% for i in 1..figure.rating %}
+                                <span class="glyphicon glyphicon-star" style="color: #0088CC"></span>
+                            {% endfor %}
+
+                            {% if figure.rating < 5 %}
+
+                                {% set star_empty = 5 - figure.rating %}
+
+                                {% for i in 1..star_empty %}
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                {% endfor %}
+
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="home_action col-sm-3">
+
+                        <a href="{{ path("edit_figure", {'id' : figure.id}) }}">
+                            <button class="home_button_edit">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </a>
+
+                        <a href="{{ path("delete_figure", {'id' : figure.id}) }}">
+                            <button class="home_button_del">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </a>
+
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+    <div class="col-sm-6">
+        {% for figure in figures %}
+            {% if loop.index is divisible by(2) %}
+                <div class="home_figure col-sm-12">
+                    <div class="col-sm-4">
+
+                        <img class="home_image" src="{{ figure.images[0].url }}">
+
+                    </div>
+
+                    <div class="home_descript_figure col-sm-5">
+
+                        <a href="{{ path("figure", {'id' : figure.id}) }}"><h4>{{ figure.name }}</h4></a>
+
+                        <div class="rating_figure">
+
+                            {% for i in 1..figure.rating %}
+                                <span class="glyphicon glyphicon-star" style="color: #0088CC"></span>
+                            {% endfor %}
+
+                            {% if figure.rating < 5 %}
+
+                                {% set star_empty = 5 - figure.rating %}
+
+                                {% for i in 1..star_empty %}
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                {% endfor %}
+
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="home_action col-sm-3">
+
+                        <a href="{{ path("edit_figure", {'id' : figure.id}) }}">
+                            <button type="" class="home_button_edit">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </a>
+
+                        <a href="{{ path("delete_figure", {'id' : figure.id}) }}">
+                            <button class="home_button_del">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </a>
+
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

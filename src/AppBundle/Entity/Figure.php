@@ -68,14 +68,14 @@ class Figure
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="figure", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="figure", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $images;
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Video", mappedBy="figure", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Video", mappedBy="figure", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $videos;

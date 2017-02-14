@@ -116,4 +116,32 @@ class DefaultController extends Controller
 
 
     }
+
+    /** @Route("/home", name="home") */
+    public function homeAction(){
+
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $allFigures = $em->getRepository("AppBundle:Figure")->findAll();
+
+
+        return $this->render("home.html.twig", array("figures" => $allFigures));
+    }
+
+    /** @Route("/delete/{id}", name="delete_figure") */
+    public function deleteAction($id){
+
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $figure = $em->getRepository("AppBundle:Figure")->findWithAll($id);
+
+        if (!$figure){
+            throw new NotFoundHttpException("La figure demandé n'existe pas");
+        }
+
+        $em->remove($figure);
+        $em->flush();
+
+        return $this->redirectToRoute("home");
+    }
 }
