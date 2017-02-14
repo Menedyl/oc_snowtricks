@@ -9,7 +9,7 @@
         <h3 class="name_figure">{{ figure.name }}</h3>
         <br>
 
-            {% include "carousel.html.twig" %}
+        {% include "carousel.html.twig" %}
 
         <br>
         <br>
@@ -43,9 +43,32 @@
 
         <br>
 
-        <p class="group_figure">
-            <strong>Groupe de figure :</strong> <a href="#">{{ figure.groupFigure }}</a>
-        </p>
+        <div class="row">
+            <div class="col-sm-4">
+
+                <p class="group_figure">
+                    <strong>Groupe de figure :</strong> <a href="#">{{ figure.groupFigure }}</a>
+                </p>
+
+                <br>
+
+                <p id="video_view">
+                    <strong>Vidéos :</strong>
+                </p>
+
+                {% for video in figure.videos %}
+
+                    <a href="{{ video.url }}" >{{ video.alt }}</a><br>
+
+                {% endfor %}
+
+
+            </div>
+
+            <div class="col-sm-8">
+                ESPACE DISCUTION
+            </div>
+        </div>
 
     </div>
 
