@@ -117,15 +117,32 @@ class DefaultController extends Controller
 
     }
 
-    /** @Route("/home", name="home") */
-    public function homeAction(){
+    /** @Route("/home{page}", name="home") */
+    public function homeAction($page = 1){
 
-        $em = $this->getDoctrine()->getEntityManager();
+        if ($page < 1){
+            throw new NotFoundHttpException("La page demandé n'existe pas.");
+        }
 
-        $allFigures = $em->getRepository("AppBundle:Figure")->findAll();
+        $nbPerPage = $this->getParameter("nb_per_page");
 
 
-        return $this->render("home.html.twig", array("figures" => $allFigures));
+        $listFigure = $this->getDoctrine()->getEntityManager()
+            ->getRepository("AppBundle:Figure")
+            ->getForPagination($page, $nbPerPage);
+
+        $nbPages = ceil(count($listFigure) / $nbPerPage);
+
+        if ($page > $nbPages){
+            throw new NotFoundHttpException("La page demandé n'existe pas.");
+        }
+
+
+
+        return $this->render("home.html.twig", array(
+            "figures" => $listFigure,
+            "nbPages" => $nbPages,
+            "page" => $page));
     }
 
     /** @Route("/delete/{id}", name="delete_figure") */

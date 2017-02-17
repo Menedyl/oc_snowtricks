@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * FigureRepository
  *
@@ -13,15 +15,34 @@ class FigureRepository extends \Doctrine\ORM\EntityRepository
 
     public function findWithAll($id)
     {
-        return $this->createQueryBuilder('e')
-            ->where('e.id = :id')
+        return $this->createQueryBuilder('f')
+            ->where('f.id = :id')
             ->setParameter('id', $id)
-            ->innerJoin('e.images', 'images')
+            ->innerJoin('f.images', 'images')
             ->addSelect('images')
-            ->leftJoin('e.videos', 'videos')
+            ->leftJoin('f.videos', 'videos')
             ->addSelect('videos')
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function getForPagination($page, $nbPerPage){
+
+        $query = $this->createQueryBuilder('f')
+            ->innerJoin('f.images', 'images')
+            ->addSelect('images')
+            ->leftJoin('f.videos', 'videos')
+            ->addSelect('videos')
+            ->orderBy('f.dateCreate', 'DESC')
+            ->getQuery();
+
+        $query
+            ->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage);
+
+        return new Paginator($query, true);
+
+
     }
 
 }
