@@ -1,0 +1,24 @@
+#figure {
+    text-align: center;
+}
+
+.name_figure {
+    color: #0088CC;
+    font-weight: bold;
+    border-top: solid;
+    border-color: black;
+    padding-top: 1%;
+}
+
+.group_figure {
+    text-align: left;
+}
+
+#video_view{
+    float: left;
+}
+
+#carousel{
+    margin: auto;
+    width: 80%;
+}

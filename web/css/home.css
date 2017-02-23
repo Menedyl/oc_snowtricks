@@ -1,0 +1,36 @@
+#description_site{
+    text-align: center;
+    font-style: italic;
+    font-size: small;
+}
+.home_figure{
+    padding: 0;
+    margin: 2% 0 2% 0;
+}
+.home_image{
+    width: 100%;
+}
+
+.home_descript_figure{
+    text-align: center;
+}
+
+.home_action{
+    text-align: center;
+}
+
+.home_action a:hover{
+    text-decoration: none;
+}
+
+.home_button_edit{
+    color: #0088CC;
+}
+
+.home_button_del{
+    color: #C82829;
+}
+
+#home_pagination{
+    text-align: center;
+}

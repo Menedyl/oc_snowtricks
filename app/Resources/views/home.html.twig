@@ -1,6 +1,14 @@
 {% extends "layout.html.twig" %}
 
-{% block body %}
+{% block stylesheets %}
+
+    {{ parent() }}
+
+    <link href="{{ asset("css/home.css") }}" rel="stylesheet">
+
+{% endblock %}
+
+    {% block body %}
 
     <p id="description_site">
         Le snowboard est un sport de glisse

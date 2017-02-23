@@ -13,7 +13,11 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <link href="{{ asset("css/main.css.twig") }}" rel="stylesheet">
+    <link href="{{ asset("css/layout.css") }}" rel="stylesheet">
+
+    {% block stylesheets %}
+    {% endblock %}
+
 
     <title>SnowTricks</title>
 
@@ -29,9 +33,9 @@
 
     {% for message in app.session.flashbag.get('info') %}
 
-    <div class="alert alert-info">
-        {{ message }}
-    </div>
+        <div class="alert alert-info">
+            {{ message }}
+        </div>
 
     {% endfor %}
 
