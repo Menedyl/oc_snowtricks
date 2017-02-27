@@ -80,6 +80,13 @@ class Figure
      */
     private $videos;
 
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="figure", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $messages;
+
 
     public function __construct()
     {
@@ -305,5 +312,39 @@ class Figure
     public function getVideos()
     {
         return $this->videos;
+    }
+
+    /**
+     * Add message
+     *
+     * @param \AppBundle\Entity\Message $message
+     *
+     * @return Figure
+     */
+    public function addMessage(\AppBundle\Entity\Message $message)
+    {
+        $this->messages->add($message);
+
+        $message->setFigure($this);
+    }
+
+    /**
+     * Remove message
+     *
+     * @param \AppBundle\Entity\Message $message
+     */
+    public function removeMessage(\AppBundle\Entity\Message $message)
+    {
+        $this->messages->removeElement($message);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }
