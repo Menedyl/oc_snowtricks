@@ -1,0 +1,92 @@
+<div class="panel-groupe" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                    Derniers commentaires
+                </a>
+            </h4>
+        </div>
+
+
+        <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+                blablabla
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                    Dernières illustration
+                </a>
+            </h4>
+        </div>
+
+
+        <div id="collapse2" class="panel-collapse collapse">
+
+            {% for image in recentImages %}
+                <div class="panel-body">
+                    <div class="news_info col-md-9">
+                        <p class="news_name">
+                            <strong>
+                                <a href="{{ path("figure", {"id" : image.figure.id}) }}">{{ image.figure.name }}</a>
+                            </strong>
+                        </p>
+
+                        <p class="news_date">
+                            <em>{{ image.dateCreate | date("D H:i:s d/m/Y") }}</em>
+                        </p>
+                    </div>
+
+                    <div class="news_media col-sm-3">
+                        <img src="{{ image.url }}" height="55" width="70">
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                    Dernières videos
+                </a>
+            </h4>
+        </div>
+
+
+        <div id="collapse3" class="panel-collapse collapse">
+            <div class="panel-body">
+
+                {% for video in recentVideos %}
+                    <div class="panel-body">
+                        <div class="news_info col-md-9">
+                            <p class="news_name">
+                                <strong>
+                                    <a href="{{ path("figure", {"id" : video.figure.id}) }}">{{ video.figure.name }}</a>
+                                </strong>
+                            </p>
+
+                            <p class="news_date">
+                                <em>{{ video.dateCreate | date("D H:i:s d/m/Y") }}</em>
+                            </p>
+                        </div>
+
+                        <div class="news_media col-sm-3">
+                            <img src="{{ video.url }}" height="55" width="70">
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>

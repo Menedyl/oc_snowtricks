@@ -34,11 +34,7 @@ legend {
     font-size: 18px;
 }
 
-.alert-info {
-    margin: auto;
-    width: 90%;
-    text-align: center;
-}
+
 
 #add_image, #add_video{
     float: left;

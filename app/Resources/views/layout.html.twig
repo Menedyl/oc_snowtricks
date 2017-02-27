@@ -10,7 +10,6 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <link href="{{ asset("css/layout.css") }}" rel="stylesheet">
@@ -20,13 +19,10 @@
 
 
     <title>SnowTricks</title>
-
 </head>
-
 
 <body>
 <div class="container_fluid">
-
     <h1 id="title">SnowTricks</h1>
 
     {% include "menu.html.twig" %}
@@ -40,11 +36,9 @@
     {% endfor %}
 
     <div class="row">
-
         <div class="col-sm-3">
 
-            {% block news %}
-            {% endblock %}
+            {{ render(controller('AppBundle:Default:news')) }}
 
         </div>
 
@@ -53,10 +47,7 @@
             {% block body %}
             {% endblock %}
 
-
         </div>
-
-
     </div>
 </div>
 
