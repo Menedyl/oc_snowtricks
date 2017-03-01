@@ -12,7 +12,6 @@ class ImageRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getForNews($max)
     {
-
         return $query = $this->createQueryBuilder('i')
             ->innerJoin('i.figure', 'figure')
             ->addSelect('figure')
