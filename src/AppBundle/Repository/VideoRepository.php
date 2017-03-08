@@ -10,4 +10,16 @@ namespace AppBundle\Repository;
  */
 class VideoRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getForNews($max)
+    {
+
+        return $query = $this->createQueryBuilder('v')
+            ->innerJoin('v.figure', 'figure')
+            ->addSelect('figure')
+            ->orderBy('v.dateCreate', 'DESC')
+            ->getQuery()
+            ->setMaxResults($max)
+            ->getResult();
+
+    }
 }

@@ -38,3 +38,32 @@ nav {
 #research{
     float: right;
 }
+
+.alert-info {
+    margin: auto;
+    width: 90%;
+    text-align: center;
+}
+
+.panel{
+    margin: 0;
+}
+
+.panel-body{
+    padding: 0;
+}
+
+.panel-title{
+    font-weight: bold;
+}
+
+.news_info, .news_media{
+    padding: 1%;
+}
+
+.news_name{
+    font-size: 18px;
+}
+.news_date{
+    font-size: small;
+}

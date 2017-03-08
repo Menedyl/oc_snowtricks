@@ -15,6 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class DefaultController extends Controller
 {
     const NB_PER_PAGE = 8;
+    const MAX_NEWS = 5;
 
     /** @Route("/figure/{id}", name="figure", requirements={"id" : "\d+"}) */
     public function viewAction($id)
@@ -170,5 +171,19 @@ class DefaultController extends Controller
         $em->flush();
 
         return $this->redirectToRoute("home");
+    }
+
+    public function newsAction(){
+
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $recentImages = $em->getRepository("AppBundle:Image")->getForNews(self::MAX_NEWS);
+        $recentVideos = $em->getRepository("AppBundle:Video")->getForNews(self::MAX_NEWS);
+
+        return $this->render("::news.html.twig", array(
+            'recentImages' => $recentImages,
+            'recentVideos' => $recentVideos
+        ));
+
     }
 }
