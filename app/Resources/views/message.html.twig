@@ -1,0 +1,46 @@
+<div id="messages_form_figure">
+
+    {{ form_start(formMessage) }}
+
+    <fieldset>
+        <legend>
+            Poster un message
+        </legend>
+
+        <div class="form-group">
+            {{ form_row(formMessage.content) }}
+        </div>
+
+        <button type="submit" id="btn_valid_form" class="btn btn-primary">Envoyer</button>
+
+        {{ form_rest(formMessage) }}
+
+    </fieldset>
+
+    {{ form_end(formMessage) }}
+
+</div>
+
+
+<div id="messages_post_figure">
+
+    <span>Messages</span>
+
+    {% if figure.messages %}
+        {% for message in figure.messages %}
+
+            <div class="message_figure">
+                <div class="message_info_figure">
+                    <p class="message_auteur_figure">
+                        Pseudo utilisateur <em>Poster le {{ message.datecreate | date("d/m/Y à H:i:s") }}</em>
+                    </p>
+
+                </div>
+                <div class="message_content_figure">
+                    {{ message.content }}
+                </div>
+            </div>
+
+        {% endfor %}
+    {% endif %}
+</div>

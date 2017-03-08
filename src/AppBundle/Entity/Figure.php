@@ -83,7 +83,6 @@ class Figure
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Message", mappedBy="figure", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $messages;
 
@@ -253,7 +252,7 @@ class Figure
      *
      * @return Figure
      */
-    public function addImage(\AppBundle\Entity\Image $image)
+    public function addImage(Image $image)
     {
         $this->images->add($image);
 
@@ -265,7 +264,7 @@ class Figure
      *
      * @param \AppBundle\Entity\Image $image
      */
-    public function removeImage(\AppBundle\Entity\Image $image)
+    public function removeImage(Image $image)
     {
         $this->images->removeElement($image);
     }
@@ -287,7 +286,7 @@ class Figure
      *
      * @return Figure
      */
-    public function addVideo(\AppBundle\Entity\Video $video)
+    public function addVideo(Video $video)
     {
         $this->videos->add($video);
 
@@ -299,7 +298,7 @@ class Figure
      *
      * @param \AppBundle\Entity\Video $video
      */
-    public function removeVideo(\AppBundle\Entity\Video $video)
+    public function removeVideo(Video $video)
     {
         $this->videos->removeElement($video);
     }
@@ -321,7 +320,7 @@ class Figure
      *
      * @return Figure
      */
-    public function addMessage(\AppBundle\Entity\Message $message)
+    public function addMessage(Message $message)
     {
         $this->messages->add($message);
 
@@ -333,7 +332,7 @@ class Figure
      *
      * @param \AppBundle\Entity\Message $message
      */
-    public function removeMessage(\AppBundle\Entity\Message $message)
+    public function removeMessage(Message $message)
     {
         $this->messages->removeElement($message);
     }

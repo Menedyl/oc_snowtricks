@@ -2,12 +2,9 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Image;
-use AppBundle\Entity\Video;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,7 +30,6 @@ class FigureType extends AbstractType
             ))
             ->add('rating', ChoiceType::class, array(
                 'choices' => array(
-                    'Novice' => 0,
                     'Débutant' => 1,
                     'Amateur' => 2,
                     'Confirmé' => 3,

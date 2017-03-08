@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class MessageRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getForNews($max)
+    {
+        return $query = $this->createQueryBuilder('m')
+            ->innerJoin('m.figure', 'figure')
+            ->addSelect('figure')
+            ->orderBy('m.dateCreate', 'DESC')
+            ->getQuery()
+            ->setMaxResults($max)
+            ->getResult();
+    }
 }

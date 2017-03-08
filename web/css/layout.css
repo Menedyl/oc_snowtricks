@@ -35,7 +35,7 @@ nav {
     border-radius: 10px;
 }
 
-#research{
+#research {
     float: right;
 }
 
@@ -45,25 +45,28 @@ nav {
     text-align: center;
 }
 
-.panel{
+.panel {
     margin: 0;
 }
 
-.panel-body{
+.panel-body {
     padding: 0;
 }
 
-.panel-title{
+.panel-title {
     font-weight: bold;
+    font-size: 1.2em;
 }
 
-.news_info, .news_media{
+.news_info, .news_media {
     padding: 1%;
 }
 
-.news_name{
-    font-size: 18px;
+.news_name {
+    font-size: 1.2em;
+    margin: 0;
 }
-.news_date{
-    font-size: small;
+
+.news_date {
+    font-size: smaller;
 }

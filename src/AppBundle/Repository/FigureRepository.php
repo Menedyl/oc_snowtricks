@@ -13,7 +13,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class FigureRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function findWithAll($id)
+    public function findWithImagesAndVideos($id)
     {
         return $this->createQueryBuilder('f')
             ->where('f.id = :id')
@@ -26,7 +26,24 @@ class FigureRepository extends \Doctrine\ORM\EntityRepository
             ->getOneOrNullResult();
     }
 
-    public function getForPagination($page, $nbPerPage){
+    public function findWithAll($id)
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.id = :id')
+            ->setParameter('id', $id)
+            ->innerJoin('f.images', 'images')
+            ->addSelect('images')
+            ->leftJoin('f.videos', 'videos')
+            ->addSelect('videos')
+            ->leftJoin('f.messages', 'messages')
+            ->addSelect('messages')
+            ->getQuery()
+            ->getOneOrNullResult();
+
+    }
+
+    public function getForPagination($page, $nbPerPage)
+    {
 
         $query = $this->createQueryBuilder('f')
             ->innerJoin('f.images', 'images')
@@ -37,7 +54,7 @@ class FigureRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery();
 
         $query
-            ->setFirstResult(($page-1) * $nbPerPage)
+            ->setFirstResult(($page - 1) * $nbPerPage)
             ->setMaxResults($nbPerPage);
 
         return new Paginator($query, true);

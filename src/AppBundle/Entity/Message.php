@@ -37,9 +37,9 @@ class Message
 
     /**
      * @ORM\ManyToOne(targetEntity="Figure", inversedBy="messages")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $figure;
+
 
     public function __construct()
     {
