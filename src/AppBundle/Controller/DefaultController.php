@@ -12,36 +12,27 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Serializer\Serializer;
 
 class DefaultController extends Controller
 {
-    const NB_PER_PAGE = 8;
+    const NB_FIGURE_PER_PAGE = 8;
+    const NB_MESSAGE_PER_PAGE = 10;
     const MAX_NEWS = 5;
 
     /**
-     * @Route("/figure/{id}", name="figure", requirements={"id" : "\d+"})
+     * @Route("/figure/{id}/message/{page}", name="message", defaults={"page" : 1}, requirements={"id" : "\d+", "page" : "\d+"})
+     * @ParamConverter("figure")
      */
-    public function viewAction(Request $request, $id)
+    public function messageAction(Request $request, Figure $figure, $page)
     {
-
-        // Affichage de la figure   ************************************************************************************
-
-        $em = $this->getDoctrine();
-
-        /** @var Figure $figure */
-        $figure = $em->getRepository("AppBundle:Figure")->findWithAll($id);
-
-        if (!$figure) {
-            throw new NotFoundHttpException("La figure demandé n'existe pas.");
-        }
-
-        // Formulaire pour message  ************************************************************************************
-
         /** @var Message $message */
         $message = new Message();
 
         /** @var Form $formMessage */
         $formMessage = $this->createForm(MessageType::class, $message);
+
 
         if ($request->isMethod('POST') && $formMessage->handleRequest($request)->isValid()) {
             $figure->addMessage($message);
@@ -49,9 +40,32 @@ class DefaultController extends Controller
             $em->flush();
         }
 
+        $listMessages = $this->getDoctrine()->getRepository("AppBundle:Message")
+            ->findByFigureWithOrderByDateCreate($figure->getId(), $page, self::NB_MESSAGE_PER_PAGE);
+
+        $nbPages = ceil(count($listMessages) / self::NB_MESSAGE_PER_PAGE);
+
+        if ($page > $nbPages) {
+            throw new NotFoundHttpException("La page demandé n'existe pas.");
+        }
+
+        return $this->render("::message.html.twig", array(
+            'listMessages' => $listMessages,
+            'nbPages' => $nbPages,
+            'page' => $page,
+            'formMessage' => $formMessage->createView()
+        ));
+    }
+
+    /**
+     * @Route("/figure/{id}", name="figure", requirements={"id" : "\d+"})
+     * @ParamConverter("figure")
+     */
+    public function viewAction(Figure $figure)
+    {
         return $this->render('::view.html.twig', array(
-            'figure' => $figure,
-            'formMessage' => $formMessage->createView()));
+            'figure' => $figure
+        ));
     }
 
     /**
@@ -79,17 +93,12 @@ class DefaultController extends Controller
 
     /**
      * @Route("/edit/{id}", name="edit_figure", requirements={"id" : "\d+"})
+     * @ParamConverter("figure")
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, Figure $figure)
     {
+
         $em = $this->getDoctrine()->getManager();
-
-        /** @var Figure $figure */
-        $figure = $em->getRepository("AppBundle:Figure")->findWithImagesAndVideos($id);
-
-        if (!$figure) {
-            throw new NotFoundHttpException("La figure demandé n'existe pas");
-        }
 
         $originalImages = new ArrayCollection();
 
@@ -141,9 +150,9 @@ class DefaultController extends Controller
 
         $listFigure = $this->getDoctrine()->getManager()
             ->getRepository("AppBundle:Figure")
-            ->getForPagination($page, self::NB_PER_PAGE);
+            ->getForPagination($page, self::NB_FIGURE_PER_PAGE);
 
-        $nbPages = ceil(count($listFigure) / self::NB_PER_PAGE);
+        $nbPages = ceil(count($listFigure) / self::NB_FIGURE_PER_PAGE);
 
         if ($page > $nbPages) {
             throw new NotFoundHttpException("La page demandé n'existe pas.");
@@ -158,18 +167,11 @@ class DefaultController extends Controller
 
     /**
      * @Route("/delete/{id}", name="delete_figure", requirements={"id" : "\d+"})
+     * @ParamConverter("figure")
      */
-    public function deleteAction($id)
+    public function deleteAction(Figure $figure)
     {
-
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $figure = $em->getRepository("AppBundle:Figure")->findWithImagesAndVideos($id);
-
-        if (!$figure) {
-            throw new NotFoundHttpException("La figure demandé n'existe pas");
-        }
-
+        $em = $this->getDoctrine()->getManager();
         $em->remove($figure);
         $em->flush();
 

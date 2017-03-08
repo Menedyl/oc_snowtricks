@@ -70,13 +70,21 @@
 
             </div>
 
-            <div class="col-sm-7">
+            <div id="figure_message" class="col-sm-7">
 
-                {% include "message.html.twig" %}
+                <div id="message_figure">
+
+                </div>
 
             </div>
         </div>
 
     </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{{ asset('js/figure.js') }}" rel="stylesheet"></script>
 
 {% endblock %}
