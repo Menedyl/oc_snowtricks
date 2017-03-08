@@ -9,13 +9,13 @@
 
 {% block body %}
 
-    {% include "form.html.twig"with {"edit" : true} %}
+    {% include 'form.html.twig' with {'add' : true} %}
 
 {% endblock %}
 
 
 {% block scripts %}
 
-    <script src="{{ asset('js/edit_figure.js') }}" rel="stylesheet"></script>
+    <script src="{{ asset('js/add_figure.js') }}" rel="stylesheet"></script>
 
 {% endblock %}

@@ -83,8 +83,6 @@ class Image
     public function setFigure(Figure $figure)
     {
         $this->figure = $figure;
-
-        return $this;
     }
 
     /**
@@ -117,8 +115,6 @@ class Image
     public function setUrl($url)
     {
         $this->url = $url;
-
-        return $this;
     }
 
     /**
@@ -141,8 +137,6 @@ class Image
     public function setAlt($alt)
     {
         $this->alt = $alt;
-
-        return $this;
     }
 
     /**
@@ -162,10 +156,8 @@ class Image
      *
      * @return Image
      */
-    public function setDateCreate($dateCreate)
+    public function setDateCreate(\DateTime $dateCreate)
     {
         $this->dateCreate = $dateCreate;
-
-        return $this;
     }
 }

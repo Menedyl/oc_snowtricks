@@ -127,8 +127,6 @@ class Figure
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -151,8 +149,6 @@ class Figure
     public function setContent($content)
     {
         $this->content = $content;
-
-        return $this;
     }
 
     /**
@@ -175,8 +171,6 @@ class Figure
     public function setRating($rating)
     {
         $this->rating = $rating;
-
-        return $this;
     }
 
     /**
@@ -199,8 +193,6 @@ class Figure
     public function setGroupFigure($groupFigure)
     {
         $this->groupFigure = $groupFigure;
-
-        return $this;
     }
 
     /**
@@ -220,11 +212,9 @@ class Figure
      *
      * @return Figure
      */
-    public function setDateCreate($dateCreate)
+    public function setDateCreate(\DateTime $dateCreate)
     {
         $this->dateCreate = $dateCreate;
-
-        return $this;
     }
 
     /**
@@ -244,11 +234,9 @@ class Figure
      *
      * @return Figure
      */
-    public function setDateModif($dateModif)
+    public function setDateModif(\DateTime $dateModif)
     {
         $this->dateModif = $dateModif;
-
-        return $this;
     }
 
     /**
@@ -263,8 +251,6 @@ class Figure
         $this->images->add($image);
 
         $image->setFigure($this);
-
-        return $this;
     }
 
     /**
@@ -299,8 +285,6 @@ class Figure
         $this->videos->add($video);
 
         $video->setFigure($this);
-
-        return $this;
     }
 
     /**

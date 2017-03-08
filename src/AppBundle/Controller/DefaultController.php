@@ -14,7 +14,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
-    /** @Route("/figure/{id}", name="figure") */
+    const NB_PER_PAGE = 8;
+
+    /** @Route("/figure/{id}", name="figure", requirements={"id" : "\d+"}) */
     public function viewAction($id)
     {
 
@@ -59,14 +61,13 @@ class DefaultController extends Controller
 
         }
 
-        return $this->render("add_figure.hmlt.twig", array(
-            "form" => $addForm->createView(),
-            "add" => true
+        return $this->render("add_figure.html.twig", array(
+            "form" => $addForm->createView()
         ));
 
     }
 
-    /** @Route("/edit/{id}", name="edit_figure") */
+    /** @Route("/edit/{id}", name="edit_figure", requirements={"id" : "\d+"}) */
     public function editAction(Request $request, $id)
     {
 
@@ -87,6 +88,12 @@ class DefaultController extends Controller
             $originalImages->add($image);
         }
 
+        $originalVideos = new ArrayCollection();
+
+        foreach ($figure->getVideos() as $video) {
+            $originalVideos->add($video);
+        }
+
 
         /** @var Form $form */
         $editForm = $this->createForm(FigureType::class, $figure);
@@ -94,10 +101,16 @@ class DefaultController extends Controller
         if ($request->isMethod("POST") && $editForm->handleRequest($request)->isValid()) {
 
             foreach ($originalImages as $image) {
-
                 if (!$figure->getImages()->contains($image)) {
 
                     $em->remove($image);
+                }
+            }
+
+            foreach ($originalVideos as $video) {
+                if (!$figure->getVideos()->contains($video)) {
+
+                    $em->remove($video);
                 }
             }
 
@@ -110,33 +123,29 @@ class DefaultController extends Controller
 
 
         return $this->render("edit_figure.html.twig", array(
-            "form" => $editForm->CreateView(),
-            "edit" => true
-            ));
+            "form" => $editForm->CreateView()
+        ));
 
 
     }
 
-    /** @Route("/home{page}", name="home") */
-    public function homeAction($page = 1){
-
-        if ($page < 1){
+    /** @Route("/home/{page}", name="home", defaults={"page" : 1}, requirements={"page" : "\d+"}) */
+    public function homeAction($page)
+    {
+        if ($page < 1) {
             throw new NotFoundHttpException("La page demandé n'existe pas.");
         }
-
-        $nbPerPage = $this->getParameter("nb_per_page");
 
 
         $listFigure = $this->getDoctrine()->getEntityManager()
             ->getRepository("AppBundle:Figure")
-            ->getForPagination($page, $nbPerPage);
+            ->getForPagination($page, self::NB_PER_PAGE);
 
-        $nbPages = ceil(count($listFigure) / $nbPerPage);
+        $nbPages = ceil(count($listFigure) / self::NB_PER_PAGE);
 
-        if ($page > $nbPages){
+        if ($page > $nbPages) {
             throw new NotFoundHttpException("La page demandé n'existe pas.");
         }
-
 
 
         return $this->render("home.html.twig", array(
@@ -145,14 +154,15 @@ class DefaultController extends Controller
             "page" => $page));
     }
 
-    /** @Route("/delete/{id}", name="delete_figure") */
-    public function deleteAction($id){
+    /** @Route("/delete/{id}", name="delete_figure", requirements={"id" : "\d+"}) */
+    public function deleteAction($id)
+    {
 
         $em = $this->getDoctrine()->getEntityManager();
 
         $figure = $em->getRepository("AppBundle:Figure")->findWithAll($id);
 
-        if (!$figure){
+        if (!$figure) {
             throw new NotFoundHttpException("La figure demandé n'existe pas");
         }
 

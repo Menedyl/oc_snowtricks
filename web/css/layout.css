@@ -1,0 +1,40 @@
+body {
+    padding: 1% 3% 5% 3%;
+}
+
+#title {
+    font-weight: bold;
+    font-size: 48px;
+    border-top: 2px solid black;
+    color: white;
+    background-color: #0088CC;
+    text-align: center;
+    margin: auto;
+    padding: 1% 1%;
+    width: 65%;
+    margin-bottom: 1%;
+}
+
+nav {
+    margin: auto;
+    text-align: center;
+    width: 65%;
+}
+
+.navbar-default .navbar-nav {
+    margin: auto;
+}
+
+.navbar-default .navbar-nav > li > a, .dropdown-menu > li > a {
+    color: #0088CC;
+}
+
+.navbar-default {
+    background-color: white;
+    border-color: #E7E7E7;
+    border-radius: 10px;
+}
+
+#research{
+    float: right;
+}

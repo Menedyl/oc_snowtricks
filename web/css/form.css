@@ -1,0 +1,52 @@
+.form-control {
+    border-radius: 8px;
+    margin: 0 1% 0 1%;
+}
+
+
+fieldset {
+    border: 2px solid black;
+    border-radius: 6px;
+    padding: 1%;
+    margin: auto;
+}
+
+legend {
+    color: #0088CC;
+    border-bottom: none;
+    padding-left: auto;
+    padding-right: auto;
+    font-weight: bold;
+    width: auto;
+}
+
+#appbundle_figure_content{
+    max-width: 100%;
+    min-width: 100%;
+}
+
+#btn_valid {
+    float: right;
+    padding: 1%;
+    margin-bottom: 1%;
+    margin-right: 1%;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.alert-info {
+    margin: auto;
+    width: 90%;
+    text-align: center;
+}
+
+#add_image, #add_video{
+    float: left;
+    padding: 0.5%;
+    margin: 1% 0 1% 0;
+}
+
+.del_field{
+    padding: 0.5%;
+    margin-top: 2%;
+}
