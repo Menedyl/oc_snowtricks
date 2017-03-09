@@ -68,6 +68,7 @@ class Figure
 
     /**
      * @var Collection
+     *
      * @ORM\OneToMany(targetEntity="Image", mappedBy="figure", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
@@ -75,6 +76,7 @@ class Figure
 
     /**
      * @var Collection
+     *
      * @ORM\OneToMany(targetEntity="Video", mappedBy="figure", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
@@ -82,9 +84,17 @@ class Figure
 
     /**
      * @var Collection
+     *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="figure", cascade={"persist", "remove"})
      */
     private $comments;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="figures")
+     */
+    private $user;
 
 
     public function __construct()
@@ -345,5 +355,27 @@ class Figure
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set user
+     *
+     * @param User $user
+     *
+     * @return Figure
+     */
+    public function setUser(User $user = null)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
