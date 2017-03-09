@@ -3,9 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Figure;
-use AppBundle\Entity\Message;
+use AppBundle\Entity\Comment;
 use AppBundle\Form\FigureType;
-use AppBundle\Form\MessageType;
+use AppBundle\Form\CommentType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
@@ -22,38 +22,38 @@ class DefaultController extends Controller
     const MAX_NEWS = 5;
 
     /**
-     * @Route("/figure/{id}/message/{page}", name="message", defaults={"page" : 1}, requirements={"id" : "\d+", "page" : "\d+"})
+     * @Route("/figure/{id}/comment/{page}", name="comment", defaults={"page" : 1}, requirements={"id" : "\d+", "page" : "\d+"})
      * @ParamConverter("figure")
      */
     public function messageAction(Request $request, Figure $figure, $page)
     {
-        /** @var Message $message */
-        $message = new Message();
+        /** @var Comment $comment */
+        $comment = new Comment();
 
-        /** @var Form $formMessage */
-        $formMessage = $this->createForm(MessageType::class, $message);
+        /** @var Form $formComment */
+        $formComment = $this->createForm(CommentType::class, $comment);
 
 
-        if ($request->isMethod('POST') && $formMessage->handleRequest($request)->isValid()) {
-            $figure->addMessage($message);
+        if ($request->isMethod('POST') && $formComment->handleRequest($request)->isValid()) {
+            $figure->addComment($comment);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
         }
 
-        $listMessages = $this->getDoctrine()->getRepository("AppBundle:Message")
+        $listComments = $this->getDoctrine()->getRepository("AppBundle:Comment")
             ->findByFigureWithOrderByDateCreate($figure->getId(), $page, self::NB_MESSAGE_PER_PAGE);
 
-        $nbPages = ceil(count($listMessages) / self::NB_MESSAGE_PER_PAGE);
+        $nbPages = ceil(count($listComments) / self::NB_MESSAGE_PER_PAGE);
 
-        if ($page > $nbPages) {
-            throw new NotFoundHttpException("La page demandé n'existe pas.");
-        }
+        // if ($page > $nbPages) {
+        //    throw new NotFoundHttpException("La page demandé n'existe pas.");
+        // }
 
-        return $this->render("::message.html.twig", array(
-            'listMessages' => $listMessages,
+        return $this->render("comment.html.twig", array(
+            'listComments' => $listComments,
             'nbPages' => $nbPages,
             'page' => $page,
-            'formMessage' => $formMessage->createView()
+            'formComment' => $formComment->createView()
         ));
     }
 
@@ -61,9 +61,9 @@ class DefaultController extends Controller
      * @Route("/figure/{id}", name="figure", requirements={"id" : "\d+"})
      * @ParamConverter("figure")
      */
-    public function viewAction(Figure $figure)
+    public function figureAction(Figure $figure)
     {
-        return $this->render('::view.html.twig', array(
+        return $this->render('figure.html.twig', array(
             'figure' => $figure
         ));
     }
@@ -180,16 +180,17 @@ class DefaultController extends Controller
 
     public function newsAction()
     {
+
         $em = $this->getDoctrine()->getManager();
 
-        $recentImages = $em->getRepository("AppBundle:Image")->getForNews(self::MAX_NEWS);
-        $recentVideos = $em->getRepository("AppBundle:Video")->getForNews(self::MAX_NEWS);
-        $recentMessages = $em->getRepository("AppBundle:Message")->getForNews(self::MAX_NEWS);
+        $recentImages = $em->getRepository("AppBundle:Image")->findLast(self::MAX_NEWS);
+        $recentVideos = $em->getRepository("AppBundle:Video")->findLast(self::MAX_NEWS);
+        $recentComments = $em->getRepository("AppBundle:Comment")->findLast(self::MAX_NEWS);
 
         return $this->render("::news.html.twig", array(
             'recentImages' => $recentImages,
             'recentVideos' => $recentVideos,
-            'recentMessages' => $recentMessages
+            'recentComments' => $recentComments
         ));
     }
 }

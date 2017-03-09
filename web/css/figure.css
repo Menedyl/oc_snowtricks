@@ -42,40 +42,40 @@ legend {
     margin-bottom: 1%;
 }
 
-#messages_form_figure{
+#comment_form_figure{
     margin-bottom: 5%;
 }
 
-#appbundle_message_content{
+#appbundle_comment_content{
     resize: vertical;
 }
 
-#messages_post_figure{
+#comments_post_figure{
     text-align: left;
     border: 0.2em solid black;
     border-radius: 0.3em;
 }
 
-.message_figure{
+.comment_figure{
     border-top: 0.05em solid black;
     margin: 0 3% 4% 3%;
 
 }
 
-.message_auteur_figure{
+.comment_auteur_figure{
     color: #0088CC;
     font-weight: bold;
     margin-bottom: 0;
 }
 
-.message_auteur_figure > em{
+.comment_auteur_figure > em{
     color: black;
     font-style: italic;
     font-weight: normal;
     font-size: smaller;
 }
 
-.message_content_figure{
+.comment_content_figure{
     margin-bottom: 1%;
 }
 
@@ -87,7 +87,7 @@ legend {
     font-size: larger;
 }
 
-#messages_post_figure > span{
+#comments_post_figure > span{
     padding: 0 1% 0 1%;
     background-color: white;
     color: #0088CC;
@@ -98,10 +98,10 @@ legend {
     left: 0.5em;
 }
 
-#messages_empty_figure{
+#comments_empty_figure{
     text-align: center;
 }
 
-#message_pagination{
+#comment_pagination{
     text-align: center;
 }

@@ -10,7 +10,7 @@ namespace AppBundle\Repository;
  */
 class ImageRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getForNews($max)
+    public function findLast($max)
     {
         return $query = $this->createQueryBuilder('i')
             ->innerJoin('i.figure', 'figure')

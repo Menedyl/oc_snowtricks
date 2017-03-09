@@ -1,0 +1,65 @@
+<div id="comment_figure">
+
+    <div id="comment_form_figure">
+
+        {{ form_start(formComment, {'attr' : {'id' : 'form_comment'}}) }}
+
+        <fieldset>
+            <legend>
+                Poster un message
+            </legend>
+
+            <div class="form-group">
+                {{ form_row(formComment.content) }}
+            </div>
+
+            <button type="submit" id="btn_valid_form" class="btn btn-primary">Envoyer</button>
+
+            {{ form_rest(formComment) }}
+
+        </fieldset>
+
+        {{ form_end(formComment) }}
+
+    </div>
+
+
+    <div id="comments_post_figure">
+
+        <span>Messages</span>
+
+
+        {% for comment in listComments if listComments is not empty %}
+
+            <div class="comment_figure">
+                <div class="comment_info_figure">
+                    <p class="comment_auteur_figure">
+                        Pseudo utilisateur <em>Poster le {{ comment.datecreate | date("d/m/Y à H:i:s") }}</em>
+                    </p>
+
+                </div>
+                <div class="comment_content_figure">
+                    {{ comment.content }}
+                </div>
+            </div>
+
+        {% endfor %}
+
+        {% if listComments is empty %}
+
+            <p id="comments_empty_figure">Aucun message posté</p>
+
+        {% endif %}
+
+        <div id="comment_pagination">
+            <ul class="pagination">
+                {% for p in range(1, nbPages) if nbPages != 0 %}
+                    <li{% if p == page %} class="active"{% endif %}>
+                        <a class="pagin" href="#">{{ p }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</div>

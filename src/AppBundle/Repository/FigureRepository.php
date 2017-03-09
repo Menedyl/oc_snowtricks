@@ -35,8 +35,8 @@ class FigureRepository extends \Doctrine\ORM\EntityRepository
             ->addSelect('images')
             ->leftJoin('f.videos', 'videos')
             ->addSelect('videos')
-            ->leftJoin('f.messages', 'messages')
-            ->addSelect('messages')
+            ->leftJoin('f.comments', 'comments')
+            ->addSelect('comments')
             ->getQuery()
             ->getOneOrNullResult();
 

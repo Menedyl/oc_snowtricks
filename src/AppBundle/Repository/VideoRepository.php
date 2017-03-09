@@ -10,7 +10,7 @@ namespace AppBundle\Repository;
  */
 class VideoRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getForNews($max)
+    public function findLast($max)
     {
 
         return $query = $this->createQueryBuilder('v')
