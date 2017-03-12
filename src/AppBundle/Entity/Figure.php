@@ -82,9 +82,9 @@ class Figure
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="figure", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="figure", cascade={"persist", "remove"})
      */
-    private $messages;
+    private $comments;
 
 
     public function __construct()
@@ -314,36 +314,36 @@ class Figure
     }
 
     /**
-     * Add message
+     * Add comment
      *
-     * @param \AppBundle\Entity\Message $message
+     * @param \AppBundle\Entity\Comment $comment
      *
      * @return Figure
      */
-    public function addMessage(Message $message)
+    public function addComment(Comment $comment)
     {
-        $this->messages->add($message);
+        $this->comments->add($comment);
 
-        $message->setFigure($this);
+        $comment->setFigure($this);
     }
 
     /**
-     * Remove message
+     * Remove comment
      *
-     * @param \AppBundle\Entity\Message $message
+     * @param \AppBundle\Entity\Comment $comment
      */
-    public function removeMessage(Message $message)
+    public function removeComment(Comment $comment)
     {
-        $this->messages->removeElement($message);
+        $this->comments->removeElement($comment);
     }
 
     /**
-     * Get messages
+     * Get comment
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getMessages()
+    public function getComments()
     {
-        return $this->messages;
+        return $this->comments;
     }
 }

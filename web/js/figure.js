@@ -1,12 +1,12 @@
 $(document).ready(function () {
 
 
-    function loadMessage(page) {
+    function loadComment(page) {
         $.ajax({
-            url: window.location.href + '/message/' + page,
+            url: window.location.href + '/comment/' + page,
             type: 'GET',
             success: function (data) {
-                $('#message_figure').replaceWith(data);
+                $('#comment_figure').replaceWith(data);
                 submitForm();
                 paginator();
             }
@@ -14,19 +14,19 @@ $(document).ready(function () {
     }
 
     function submitForm() {
-        $('#form_message').submit(function (e) {
+        $('#form_comment').submit(function (e) {
             e.preventDefault();
 
             var content = $(this).serialize();
 
             $.ajax({
-                url: window.location.href + '/message',
+                url: window.location.href + '/comment',
                 type: 'POST',
                 data: content,
                 success: function (data) {
 
-                    $('#message_figure').replaceWith(data);
-                    $('#appbundle_message_content').val('');
+                    $('#comment_figure').replaceWith(data);
+                    $('#appbundle_comment_content').val('');
                     submitForm();
                 }
             })
@@ -36,10 +36,10 @@ $(document).ready(function () {
     function paginator(){
         $('.pagin').click(function(e){
             e.preventDefault();
-            loadMessage(parseInt($(this).text()))
+            loadComment(parseInt($(this).text()))
         })
     }
 
-    loadMessage(1);
+    loadComment(1);
 
 });

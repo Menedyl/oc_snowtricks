@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Message
+ * Comment
  *
- * @ORM\Table(name="message")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\MessageRepository")
+ * @ORM\Table(name="comment")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentRepository")
  */
-class Message
+class Comment
 {
     /**
      * @var int
@@ -36,7 +36,7 @@ class Message
     private $dateCreate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Figure", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="Figure", inversedBy="comments")
      */
     private $figure;
 
@@ -71,7 +71,7 @@ class Message
      *
      * @param string $content
      *
-     * @return Message
+     * @return Comment
      */
     public function setContent($content)
     {
@@ -93,7 +93,7 @@ class Message
      *
      * @param \DateTime $dateCreate
      *
-     * @return Message
+     * @return Comment
      */
     public function setDateCreate(\DateTime $dateCreate)
     {
@@ -105,7 +105,7 @@ class Message
      *
      * @param \AppBundle\Entity\Figure $figure
      *
-     * @return Message
+     * @return Comment
      */
     public function setFigure(Figure $figure)
     {

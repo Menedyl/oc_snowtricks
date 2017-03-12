@@ -3,7 +3,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                    Derniers commentaires
+                    Derniers messages
                 </a>
             </h4>
         </div>
@@ -12,22 +12,22 @@
         <div id="collapse1" class="panel-collapse collapse in">
             <div class="panel-body">
 
-                {% for message in recentMessages %}
+                {% for comment in recentComments %}
                     <div class="panel-body">
                         <div class="news_info">
                             <p class="news_name">
                                 <strong>
-                                    <a href="{{ path("figure", {"id" : message.figure.id}) }}">{{ message.figure.name }}</a>
+                                    <a href="{{ path("figure", {"id" : comment.figure.id}) }}">{{ comment.figure.name }}</a>
                                 </strong>
                             </p>
 
                             <p class="news_date">
-                                <em>Posté le {{ message.dateCreate | date("d/m/Y à H:i:s") }}</em>
+                                <em>Posté le {{ comment.dateCreate | date("d/m/Y à H:i:s") }}</em>
                             </p>
                         </div>
 
                         <div class="news_media">
-                            <p>{{ message.content }}</p>
+                            <p>{{ comment.content }}</p>
                         </div>
                     </div>
                 {% endfor %}
