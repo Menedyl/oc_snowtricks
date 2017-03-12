@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,10 +37,18 @@ class Comment
     private $dateCreate;
 
     /**
+     * @var Collection
+     *
      * @ORM\ManyToOne(targetEntity="Figure", inversedBy="comments")
      */
     private $figure;
 
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
+     */
+    private $user;
 
     public function __construct()
     {
@@ -120,5 +129,27 @@ class Comment
     public function getFigure()
     {
         return $this->figure;
+    }
+
+    /**
+     * Set user
+     *
+     * @param User $user
+     *
+     * @return Comment
+     */
+    public function setUser(User $user = null)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
