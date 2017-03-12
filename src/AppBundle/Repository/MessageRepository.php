@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * MessageRepository
  *
@@ -19,5 +21,19 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->setMaxResults($max)
             ->getResult();
+    }
+
+    public function findByFigureWithOrderByDateCreate($figure, $page, $nbPerPage){
+         $query = $this->createQueryBuilder('m')
+            ->where('m.figure = :id_figure')
+            ->setParameter('id_figure', $figure)
+            ->orderBy('m.dateCreate', 'DESC')
+            ->getQuery();
+
+         $query
+             ->setFirstResult(($page-1) * $nbPerPage)
+             ->setMaxResults($nbPerPage);
+
+         return new Paginator($query, true);
     }
 }

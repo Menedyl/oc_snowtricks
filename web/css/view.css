@@ -97,3 +97,11 @@ legend {
     bottom: 0.85em;
     left: 0.5em;
 }
+
+#messages_empty_figure{
+    text-align: center;
+}
+
+#message_pagination{
+    text-align: center;
+}
