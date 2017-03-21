@@ -23,13 +23,57 @@
 
 <body>
 <div class="container_fluid">
-    <h1 id="title">SnowTricks</h1>
 
+    <div class="row">
+        <div class="col-md-offset-2 col-sm-8">
+            <h1 id="title">SnowTricks</h1>
+        </div>
+
+        <div id="login_user" class="col-sm-2">
+
+            <div id="btn_user">
+
+                {% if is_granted('ROLE_USER') %}
+
+                    <a href="">
+                        <button type="button" class="btn btn-primary btn-sm btn_login_left">
+                            {{ app.user.username }}
+                        </button>
+                    </a>
+
+                    <a href="{{ path('app_login_logout') }}">
+                        <button  type="button" class="btn btn-primary btn-sm btn_login_right">
+                            Deconnexion
+                        </button>
+                    </a>
+
+                {% else %}
+
+                    <a href="{{ path('login') }}">
+                    <button type="button" class="btn btn-primary btn-sm btn_login_left">
+                        Connexion
+                    </button>
+                </a>
+
+                <a href="{{ path('signup') }}">
+                    <button  type="button" class="btn btn-primary btn-sm btn_login_right">
+                        Inscription
+                    </button>
+                </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+    </div>
     {% include "menu.html.twig" %}
 
     {% for message in app.session.flashbag.get('info') %}
 
-        <div class="alert alert-info">
+        <div id="alert" class="alert alert-info">
             {{ message }}
         </div>
 
@@ -38,7 +82,7 @@
     <div class="row">
         <div class="col-sm-3">
 
-          {{ render(controller('AppBundle:Default:news')) }}
+            {{ render(controller('AppBundle:Default:news')) }}
 
         </div>
 
@@ -51,8 +95,9 @@
     </div>
 </div>
 
-
 {% block scripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 {% endblock %}
 </body>
 

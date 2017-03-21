@@ -92,7 +92,7 @@ class Figure
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="figures")
+     * @ORM\ManyToOne(targetEntity="User")
      */
     private $user;
 

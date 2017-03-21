@@ -1,0 +1,51 @@
+{% extends "layout.html.twig" %}
+
+{% block stylesheets %}
+
+    {{ parent() }}
+    <link href="{{ asset("css/form_signup.css") }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block body %}
+
+    {{ form_start(formUser) }}
+
+    <fieldset>
+
+        <legend>
+            Inscription
+        </legend>
+
+        <div class="form-group group_login">
+
+            {{ form_row(formUser.username) }}
+
+        </div>
+
+        <div class="form-group group_login">
+
+            {{ form_row(formUser.email) }}
+
+        </div>
+
+        <div class="form-group group_login">
+
+            {{ form_row(formUser.password.pass) }}
+
+        </div>
+
+        <div class="form-group group_login">
+
+            {{ form_row(formUser.password.pass_checked) }}
+
+        </div>
+
+        {{ form_rest(formUser) }}
+
+        <button id="btn_valid" type="submit" class="btn btn-primary btn_login">Valider</button>
+
+        {{ form_end(formUser) }}
+
+    </fieldset>
+{% endblock %}

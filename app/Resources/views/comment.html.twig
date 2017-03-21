@@ -1,35 +1,46 @@
 <div id="comment_figure">
 
-    <div id="comment_form_figure">
+    {% if is_granted('ROLE_USER') %}
 
-        {{ form_start(formComment, {'attr' : {'id' : 'form_comment'}}) }}
+        <div id="comment_form_figure">
 
-        <fieldset>
-            <legend>
-                Poster un message
-            </legend>
+            {{ form_start(formComment) }}
 
-            <div class="form-group">
-                {{ form_row(formComment.content) }}
-            </div>
+            <fieldset>
+                <legend>
+                    Poster un message
+                </legend>
 
-            <button type="submit" id="btn_valid_form" class="btn btn-primary">Envoyer</button>
+                <div class="form-group">
+                    {{ form_row(formComment.content) }}
+                </div>
 
-            {{ form_rest(formComment) }}
+                <button type="submit" id="btn_valid_form" class="btn btn-primary">Envoyer</button>
 
-        </fieldset>
+                {{ form_rest(formComment) }}
 
-        {{ form_end(formComment) }}
+            </fieldset>
 
-    </div>
+            {{ form_end(formComment) }}
 
+        </div>
+
+    {% else %}
+
+        <div class="well">
+            <p>
+                Vous devez être <a href="{{ path('login') }}">connecté</a> pour poster un message.
+            </p>
+        </div>
+
+    {% endif %}
 
     <div id="comments_post_figure">
 
         <span>Messages</span>
 
 
-        {% for comment in listComments if listComments is not empty %}
+        {% for comment in listComments %}
 
             <div class="comment_figure">
                 <div class="comment_info_figure">
@@ -43,21 +54,19 @@
                 </div>
             </div>
 
-        {% endfor %}
-
-        {% if listComments is empty %}
-
+        {% else %}
             <p id="comments_empty_figure">Aucun message posté</p>
-
-        {% endif %}
+        {% endfor %}
 
         <div id="comment_pagination">
             <ul class="pagination">
+
                 {% for p in range(1, nbPages) if nbPages != 0 %}
                     <li{% if p == page %} class="active"{% endif %}>
-                        <a class="pagin" href="#">{{ p }}</a>
+                        <a class="pagin" {% if nbPages > 1 %}href="#"{% endif %}>{{ p }}</a>
                     </li>
                 {% endfor %}
+
             </ul>
         </div>
 
