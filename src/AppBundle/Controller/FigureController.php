@@ -39,6 +39,8 @@ class FigureController extends Controller
         $addForm = $this->createForm(FigureType::class, $figure);
 
         if ($request->isMethod('POST') && $addForm->handleRequest($request)->isValid()) {
+            $figure->setUser($this->getUser());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($figure);
             $em->flush();

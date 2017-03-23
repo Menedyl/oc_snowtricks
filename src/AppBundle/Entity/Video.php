@@ -75,11 +75,9 @@ class Video
     /**
      * Set figure
      *
-     * @param \AppBundle\Entity\Figure $figure
-     *
-     * @return Video
+     * @param Figure $figure
      */
-    public function setFigure(\AppBundle\Entity\Figure $figure)
+    public function setFigure(Figure $figure)
     {
         $this->figure = $figure;
     }
@@ -108,8 +106,6 @@ class Video
      * Set url
      *
      * @param string $url
-     *
-     * @return Video
      */
     public function setUrl($url)
     {
@@ -130,8 +126,6 @@ class Video
      * Set alt
      *
      * @param string $alt
-     *
-     * @return Video
      */
     public function setAlt($alt)
     {
@@ -152,8 +146,6 @@ class Video
      * Set dateCreate
      *
      * @param \DateTime $dateCreate
-     *
-     * @return Video
      */
     public function setDateCreate(\DateTime $dateCreate)
     {

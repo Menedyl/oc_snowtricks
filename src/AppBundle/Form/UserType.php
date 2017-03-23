@@ -2,8 +2,10 @@
 
 namespace AppBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -42,8 +44,11 @@ class UserType extends AbstractType
                     'label' => 'Répéter votre mot de passe :',
                     'label_attr' => array('class' => 'control-label'),
                     'attr' => array('class' => 'form-control')
-                )
-            ));
+                )))
+            ->add('avatar', AvatarType::class, array(
+                'label' => 'Avatar :'
+            ))
+        ;
     }
 
     /**

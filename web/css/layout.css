@@ -58,6 +58,10 @@ nav {
     font-size: 1.2em;
 }
 
+.news_comment{
+    padding-right: 0;
+}
+
 .news_info, .news_media {
     padding: 1%;
 }
@@ -69,6 +73,12 @@ nav {
 
 .news_date {
     font-size: smaller;
+    margin-bottom: 1%;
+}
+
+.news_avatar{
+    text-align: center;
+    padding: 2% 0 0 0;
 }
 
 #btn_user {

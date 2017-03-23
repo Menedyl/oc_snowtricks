@@ -4,7 +4,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Figure;
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\User;
 use AppBundle\Form\CommentType;
+use AppBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,6 +42,10 @@ class DefaultController extends Controller
 
         if ($request->isMethod('POST') && $formComment->handleRequest($request)->isValid()) {
             $figure->addComment($comment);
+
+
+            $comment->setUser($this->getUser());
+
             $em = $this->getDoctrine()->getManager();
             $em->flush();
         }
@@ -103,4 +109,6 @@ class DefaultController extends Controller
             'recentComments' => $recentComments
         ));
     }
+
+
 }

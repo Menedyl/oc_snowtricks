@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,7 +36,7 @@ class Comment
     private $dateCreate;
 
     /**
-     * @var Collection
+     * @var Figure
      *
      * @ORM\ManyToOne(targetEntity="Figure", inversedBy="comments")
      */
@@ -79,8 +78,6 @@ class Comment
      * Set content
      *
      * @param string $content
-     *
-     * @return Comment
      */
     public function setContent($content)
     {
@@ -101,8 +98,6 @@ class Comment
      * Set dateCreate
      *
      * @param \DateTime $dateCreate
-     *
-     * @return Comment
      */
     public function setDateCreate(\DateTime $dateCreate)
     {
@@ -113,8 +108,6 @@ class Comment
      * Set figure
      *
      * @param \AppBundle\Entity\Figure $figure
-     *
-     * @return Comment
      */
     public function setFigure(Figure $figure)
     {
@@ -124,7 +117,7 @@ class Comment
     /**
      * Get figure
      *
-     * @return \AppBundle\Entity\Figure
+     * @return Figure
      */
     public function getFigure()
     {
@@ -135,10 +128,8 @@ class Comment
      * Set user
      *
      * @param User $user
-     *
-     * @return Comment
      */
-    public function setUser(User $user = null)
+    public function setUser(User $user)
     {
         $this->user = $user;
     }

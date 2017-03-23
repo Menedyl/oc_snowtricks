@@ -27,12 +27,12 @@ class LoginController extends Controller
         ));
 
         if ($request->IsMethod("POST") && $formUser->handleRequest($request)->isValid()) {
-            $encoder = $this->get('security.password_encoder');
-            $encoded = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($encoded);
+
+            $user->setPassword(
+                $this->get('security.password_encoder')
+                    ->encodePassword($user, $user->getPassword()));
 
             $em = $this->getDoctrine()->getManager();
-
             $em->persist($user);
             $em->flush();
 
@@ -69,6 +69,40 @@ class LoginController extends Controller
      */
     public function logoutAction()
     {
+
+    }
+
+    /**
+     * @Route("/account", name="account")
+     */
+    public function accountAction(Request $request)
+    {
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $formUser = $this->createForm(UserType::class, $user);
+
+        if ($request->isMethod("POST") && $formUser->handleRequest($request)->isValid()) {
+
+            $user->setPassword(
+                $this->get('security.password_encoder')
+                    ->encodePassword($user, $user->getPassword())
+            );
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $this->addFlash('info', 'Modification du compte validé');
+
+            $this->redirectToRoute("account");
+        }
+
+
+        return $this->render(":login:account.html.twig", array(
+            'user' => $user,
+            'formUser' => $formUser->createView()
+        ));
 
     }
 

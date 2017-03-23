@@ -13,21 +13,29 @@
             <div class="panel-body">
 
                 {% for comment in recentComments %}
-                    <div class="panel-body">
-                        <div class="news_info">
-                            <p class="news_name">
-                                <strong>
-                                    <a href="{{ path("figure", {"id" : comment.figure.id}) }}">{{ comment.figure.name }}</a>
-                                </strong>
-                            </p>
+                    <div class="row">
+                        <div class="col-sm-9 news_comment">
 
-                            <p class="news_date">
-                                <em>Posté le {{ comment.dateCreate | date("d/m/Y à H:i:s") }}</em>
-                            </p>
+                            <div class="news_info">
+                                <p class="news_name">
+                                    <strong>
+                                        <a href="{{ path("figure", {"id" : comment.figure.id}) }}">{{ comment.figure.name }}</a>
+                                    </strong>
+                                </p>
+
+                                <p class="news_date">
+                                    <em>Posté le {{ comment.dateCreate | date("d/m/Y à H:i:s") }}</em><br>
+                                    <em>Par {{ comment.user.username }}</em>
+                                </p>
+                            </div>
+
+                            <div class="news_media">
+                                <p>{{ comment.content }}</p>
+                            </div>
+
                         </div>
-
-                        <div class="news_media">
-                            <p>{{ comment.content }}</p>
+                        <div class="col-sm-2 news_avatar">
+                            <img src="{{ asset(comment.user.avatar.webPath) }}" alt="{{ comment.user.avatar.alt }}" width="60" height="45">
                         </div>
                     </div>
                 {% endfor %}

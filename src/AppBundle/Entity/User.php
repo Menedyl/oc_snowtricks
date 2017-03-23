@@ -2,14 +2,14 @@
 
 namespace AppBundle\Entity;
 
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="app_user")
  */
-class User implements AdvancedUserInterface, \Serializable
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -43,6 +43,13 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
+
+    /**
+     * @var Avatar
+     *
+     * @ORM\OneToOne(targetEntity="Avatar", cascade={"persist","remove"})
+     */
+    private $avatar;
 
 
     public function __construct()
@@ -83,7 +90,7 @@ class User implements AdvancedUserInterface, \Serializable
 
     public function getRoles()
     {
-        return $this->roles;
+        return array($this->roles);
     }
 
     /**
@@ -155,28 +162,6 @@ class User implements AdvancedUserInterface, \Serializable
     {
     }
 
-    public function isAccountNonExpired()
-    {
-        return true;
-    }
-
-    public function isAccountNonLocked()
-    {
-        return true;
-
-    }
-
-    public function isCredentialsNonExpired()
-    {
-        return true;
-
-    }
-
-    public function isEnabled()
-    {
-        return $this->isActive;
-    }
-
     /** @see \Serializable::serialize() */
     public function serialize()
     {
@@ -197,5 +182,46 @@ class User implements AdvancedUserInterface, \Serializable
             $this->password,
             $this->isActive
             ) = unserialize($serialized);
+    }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
+
+
+    /**
+     * Set avatar
+     *
+     * @param Avatar $avatar
+     */
+    public function setAvatar(Avatar $avatar)
+    {
+        $this->avatar = $avatar;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return Avatar
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

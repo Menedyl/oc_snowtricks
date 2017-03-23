@@ -8,8 +8,7 @@ security:
         snowtricks:
             entity:
                 class: AppBundle:User
-                property: apiKey
-
+                property: username
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
@@ -30,6 +29,3 @@ security:
             logout:
                 path: /logout
                 target: /home
-            guard:
-                authenticator:
-                    - app.token_authenticator

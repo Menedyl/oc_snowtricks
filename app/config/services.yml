@@ -1,5 +1,4 @@
 parameters:
 
 services:
-    app.token_authenticator:
-        class: AppBundle\Security\TokenAuthenticator
+

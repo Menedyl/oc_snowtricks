@@ -35,7 +35,7 @@
 
                 {% if is_granted('ROLE_USER') %}
 
-                    <a href="">
+                    <a href="{{ path('account') }}">
                         <button type="button" class="btn btn-primary btn-sm btn_login_left">
                             {{ app.user.username }}
                         </button>

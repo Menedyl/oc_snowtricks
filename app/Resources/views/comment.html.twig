@@ -42,15 +42,22 @@
 
         {% for comment in listComments %}
 
-            <div class="comment_figure">
-                <div class="comment_info_figure">
-                    <p class="comment_auteur_figure">
-                        Pseudo utilisateur <em>Poster le {{ comment.datecreate | date("d/m/Y à H:i:s") }}</em>
-                    </p>
+            <div class="row">
+                <div class="col-sm-9 comment_figure">
+                    <div class="comment_info_figure">
+                        <p class="comment_auteur_figure">
+                            {{ comment.user.username }} <em>Poster
+                                le {{ comment.datecreate | date("d/m/Y à H:i:s") }}</em>
+                        </p>
 
+                    </div>
+                    <div class="comment_content_figure">
+                        {{ comment.content }}
+                    </div>
                 </div>
-                <div class="comment_content_figure">
-                    {{ comment.content }}
+
+                <div class="col-sm-2 comment_avatar">
+                    <img src="{{ asset(comment.user.avatar.webPath) }}" alt="{{ comment.user.avatar.alt }}" width="75" height="52">
                 </div>
             </div>
 
