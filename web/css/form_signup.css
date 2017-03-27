@@ -1,6 +1,6 @@
-.form-control {
+.group_login{
     border-radius: 0.3em;
-    margin: 0 1% 0 1%;
+    margin: 0 1% 2% 1%;
 }
 
 fieldset {
@@ -22,26 +22,11 @@ legend {
     margin-bottom: 1%;
 }
 
-#appbundle_figure_content{
-    resize: vertical;
-}
-
-#btn_valid {
+.btn_login {
     float: right;
     padding: 1%;
     margin-bottom: 1%;
     margin-right: 1%;
     font-weight: bold;
     font-size: 1.4em;
-}
-
-#add_image, #add_video{
-    float: left;
-    padding: 0.5%;
-    margin: 1% 0 1% 0;
-}
-
-.del_field{
-    padding: 0.5%;
-    margin-top: 2%;
 }

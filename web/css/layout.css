@@ -11,7 +11,7 @@ body {
     text-align: center;
     margin: auto;
     padding: 1% 1%;
-    width: 65%;
+    width: 98%;
     margin-bottom: 1%;
 }
 
@@ -40,7 +40,7 @@ nav {
 }
 
 .alert-info {
-    margin: auto;
+    margin: auto auto 2% auto;
     width: 90%;
     text-align: center;
 }
@@ -58,6 +58,10 @@ nav {
     font-size: 1.2em;
 }
 
+.news_comment{
+    padding-right: 0;
+}
+
 .news_info, .news_media {
     padding: 1%;
 }
@@ -69,4 +73,44 @@ nav {
 
 .news_date {
     font-size: smaller;
+    margin-bottom: 1%;
+}
+
+.news_avatar{
+    text-align: center;
+    padding: 2% 0 0 0;
+}
+
+#btn_user {
+    text-align: center;
+}
+
+.btn_login_left {
+    margin-right: -2.5%;
+    color: #0088CC;
+    background-color: white;
+    border-color: black;
+    padding: 2.5% 2.5% 2.5% 6%;
+    border-bottom-left-radius: 22%;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 22%;
+    border-top-right-radius: 0;
+    font-weight: bolder;
+}
+
+.btn_login_right {
+    margin-right: -2.5%;
+    color: #0088CC;
+    background-color: white;
+    border-color: black;
+    padding: 2.5% 6% 2.5% 2.5%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 22%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 22%;
+    font-weight: bolder;
+}
+
+#btn_user a:hover{
+    text-decoration: none;
 }

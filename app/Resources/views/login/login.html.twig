@@ -1,0 +1,58 @@
+{% extends "layout.html.twig" %}
+
+{% block stylesheets %}
+
+    {{ parent() }}
+    <link href="{{ asset("css/form_signup.css") }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block body %}
+
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+
+
+    <form action="{{ path('login') }}" method="post">
+
+        <fieldset>
+
+            <legend>
+                Connexion
+            </legend>
+
+            <div class="form-group group_login">
+
+                <label class="control-label required" for="login_pseudo">
+                    Votre pseudo :
+                </label>
+                <input id="login_pseudo" class="form-control"  type="text" name="_username" required="required" value="{{ last_username }}">
+
+            </div>
+
+            <div class="form-group group_login">
+
+                <label class="control-label required" for="login_pass">
+                    Votre mot de passe :
+                </label>
+                <input id="login_pass" class="form-control" type="password" name="_password" required="required" >
+
+            </div>
+
+            <input type="hidden" name="_target_path" value="/home">
+
+            <button class="btn btn-primary btn_login" type="submit">
+                Connexion
+            </button>
+
+        </fieldset>
+    </form>
+
+
+
+
+
+{% endblock %}

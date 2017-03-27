@@ -92,7 +92,7 @@ class Figure
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="figures")
+     * @ORM\ManyToOne(targetEntity="User")
      */
     private $user;
 
@@ -137,8 +137,6 @@ class Figure
      * Set name
      *
      * @param string $name
-     *
-     * @return Figure
      */
     public function setName($name)
     {
@@ -159,8 +157,6 @@ class Figure
      * Set content
      *
      * @param string $content
-     *
-     * @return Figure
      */
     public function setContent($content)
     {
@@ -181,8 +177,6 @@ class Figure
      * Set rating
      *
      * @param integer $rating
-     *
-     * @return Figure
      */
     public function setRating($rating)
     {
@@ -203,8 +197,6 @@ class Figure
      * Set groupFigure
      *
      * @param string $groupFigure
-     *
-     * @return Figure
      */
     public function setGroupFigure($groupFigure)
     {
@@ -225,8 +217,6 @@ class Figure
      * Set dateCreate
      *
      * @param \DateTime $dateCreate
-     *
-     * @return Figure
      */
     public function setDateCreate(\DateTime $dateCreate)
     {
@@ -247,8 +237,6 @@ class Figure
      * Set dateModif
      *
      * @param \DateTime $dateModif
-     *
-     * @return Figure
      */
     public function setDateModif(\DateTime $dateModif)
     {
@@ -259,8 +247,6 @@ class Figure
      * Add image
      *
      * @param \AppBundle\Entity\Image $image
-     *
-     * @return Figure
      */
     public function addImage(Image $image)
     {
@@ -293,8 +279,6 @@ class Figure
      * Add video
      *
      * @param \AppBundle\Entity\Video $video
-     *
-     * @return Figure
      */
     public function addVideo(Video $video)
     {
@@ -327,8 +311,6 @@ class Figure
      * Add comment
      *
      * @param \AppBundle\Entity\Comment $comment
-     *
-     * @return Figure
      */
     public function addComment(Comment $comment)
     {
@@ -361,8 +343,6 @@ class Figure
      * Set user
      *
      * @param User $user
-     *
-     * @return Figure
      */
     public function setUser(User $user = null)
     {

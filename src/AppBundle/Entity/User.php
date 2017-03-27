@@ -2,79 +2,111 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * User
- *
- * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\Table(name="app_user")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pseudo", type="string", length=255, unique=true)
+     * @ORM\Column(type="string", unique=true)
      */
-    private $pseudo;
+    private $username;
+
+    /**
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $email;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="mail", type="string", length=255, unique=true)
-     */
-    private $mail;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(type="string", length=64)
      */
     private $password;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateCreate", type="datetime")
+     * @ORM\Column(type="string")
      */
-    private $dateCreate;
+    private $roles;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="role", type="string", length=255)
+     * @ORM\Column(name="is_active", type="boolean")
      */
-    private $role;
+    private $isActive;
 
     /**
-     * @var Collection
+     * @var Avatar
      *
-     * @ORM\OneToMany(targetEntity="Figure", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="Avatar", cascade={"persist","remove"})
      */
-    private $figures;
+    private $avatar;
+
+
+    public function __construct()
+    {
+        $this->roles = 'ROLE_USER';
+        $this->isActive = true;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
 
     /**
-     * @var Collection
+     * Set username
      *
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
+     * @param string $username
      */
-    private $comments;
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function getRoles()
+    {
+        return array($this->roles);
+    }
+
+    /**
+     * Set roles
+     *
+     * @param string $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -82,190 +114,114 @@ class User
     }
 
     /**
-     * Set pseudo
-     *
-     * @param string $pseudo
-     *
-     * @return User
-     */
-    public function setPseudo($pseudo)
-    {
-        $this->pseudo = $pseudo;
-    }
-
-    /**
-     * Get pseudo
+     * Get email
      *
      * @return string
      */
-    public function getPseudo()
+    public function getEmail()
     {
-        return $this->pseudo;
+        return $this->email;
     }
 
     /**
-     * Set mail
+     * Set email
      *
-     * @param string $mail
-     *
-     * @return User
+     * @param string $email
      */
-    public function setMail($mail)
+    public function setEmail($email)
     {
-        $this->mail = $mail;
+        $this->email = $email;
     }
 
     /**
-     * Get mail
+     * Get isActive
      *
-     * @return string
+     * @return boolean
      */
-    public function getMail()
+    public function getIsActive()
     {
-        return $this->mail;
+        return $this->isActive;
     }
 
     /**
-     * Set password
+     * Set isActive
      *
-     * @param string $password
-     *
-     * @return User
+     * @param boolean $isActive
      */
-    public function setPassword($password)
+    public function setIsActive($isActive)
     {
-        $this->password = $password;
+        $this->isActive = $isActive;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->isActive
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->isActive
+            ) = unserialize($serialized);
+    }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
+
+
+    /**
+     * Set avatar
+     *
+     * @param Avatar $avatar
+     */
+    public function setAvatar(Avatar $avatar)
+    {
+        $this->avatar = $avatar;
     }
 
     /**
-     * Get password
+     * Get avatar
      *
-     * @return string
+     * @return Avatar
      */
-    public function getPassword()
+    public function getAvatar()
     {
-        return $this->password;
-    }
-
-    /**
-     * Set dateCreate
-     *
-     * @param \DateTime $dateCreate
-     *
-     * @return User
-     */
-    public function setDateCreate($dateCreate)
-    {
-        $this->dateCreate = $dateCreate;
-    }
-
-    /**
-     * Get dateCreate
-     *
-     * @return \DateTime
-     */
-    public function getDateCreate()
-    {
-        return $this->dateCreate;
-    }
-
-    /**
-     * Set role
-     *
-     * @param string $role
-     *
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-    }
-
-    /**
-     * Get role
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->figures = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->dateCreate = new \DateTime();
-    }
-
-    /**
-     * Add figure
-     *
-     * @param Figure $figure
-     *
-     * @return User
-     */
-    public function addFigure(Figure $figure)
-    {
-        $this->figures->add($figure);
-
-        $figure->setUser($this);
-    }
-
-    /**
-     * Remove figure
-     *
-     * @param Figure $figure
-     */
-    public function removeFigure(Figure $figure)
-    {
-        $this->figures->removeElement($figure);
-    }
-
-    /**
-     * Get figures
-     *
-     * @return Collection
-     */
-    public function getFigures()
-    {
-        return $this->figures;
-    }
-
-    /**
-     * Add comment
-     *
-     * @param Comment $comment
-     *
-     * @return User
-     */
-    public function addComment(Comment $comment)
-    {
-        $this->comments->add($comment);
-
-        $comment->setUser($this);
-    }
-
-    /**
-     * Remove comment
-     *
-     * @param Comment $comment
-     */
-    public function removeComment(Comment $comment)
-    {
-        $this->comments->removeElement($comment);
-    }
-
-    /**
-     * Get comments
-     *
-     * @return Collection
-     */
-    public function getComments()
-    {
-        return $this->comments;
+        return $this->avatar;
     }
 }

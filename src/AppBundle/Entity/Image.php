@@ -77,8 +77,6 @@ class Image
      * Set figure
      *
      * @param \AppBundle\Entity\Figure $figure
-     *
-     * @return Image
      */
     public function setFigure(Figure $figure)
     {
@@ -109,8 +107,6 @@ class Image
      * Set url
      *
      * @param string $url
-     *
-     * @return Image
      */
     public function setUrl($url)
     {
@@ -131,8 +127,6 @@ class Image
      * Set alt
      *
      * @param string $alt
-     *
-     * @return Image
      */
     public function setAlt($alt)
     {
@@ -153,8 +147,6 @@ class Image
      * Set dateCreate
      *
      * @param \DateTime $dateCreate
-     *
-     * @return Image
      */
     public function setDateCreate(\DateTime $dateCreate)
     {
