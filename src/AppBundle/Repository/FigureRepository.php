@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\GroupFigure;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
@@ -58,8 +59,16 @@ class FigureRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults($nbPerPage);
 
         return new Paginator($query, true);
+    }
 
+    public function findByGroupFigure(GroupFigure $groupFigure)
+    {
 
+        return $query = $this->createQueryBuilder('f')
+            ->where('f.groupFigure = :groupFigure')
+            ->setParameter('groupFigure', $groupFigure)
+            ->getQuery()
+            ->getResult();
     }
 
 }

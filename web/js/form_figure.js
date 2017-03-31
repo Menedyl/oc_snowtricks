@@ -2,37 +2,38 @@ $(document).ready(function () {
 
 
     var $formImage = $("div#appbundle_figure_images");
-    var indexImage = $formImage.find("div.well").length;
-
-    console.log(indexImage);
+    var indexImage = $('.image').length;
 
     var $formVideo = $("div#appbundle_figure_videos");
-    var indexVideo = $formVideo.find("div.well").length;
+    var indexVideo = $('.video').length;
 
-    console.log(indexVideo);
 
-    if (indexImage == 0) {
+    if (indexImage < 1) {
         addImage($formImage);
     }
 
-    $formImage.children("div").each(function () {
-        addDeleteLink($(this))
-    });
+    if (indexImage > 1) {
+        $('.image').each(function (index) {
+            if (index > 0) {
+                addDeleteLink($(this), true);
+            }
+        });
+    }
 
-    $formVideo.children("div").each(function(){
-        addDeleteLink($(this))
-    });
+    if (indexVideo > 0){
+        $('.video').each(function(){
+            addDeleteLink($(this), true);
+        });
+    }
 
 
-    $("#add_image").click(function (e) {
-        e.preventDefault();
+    $("#add_image").click(function () {
         addImage($formImage);
         return false;
     });
 
 
-    $("#add_video").click(function (e) {
-        e.preventDefault();
+    $("#add_video").click(function () {
         addVideo($formVideo);
         return false;
     });
@@ -73,18 +74,22 @@ $(document).ready(function () {
         indexVideo++;
     }
 
-    function addDeleteLink($fields) {
+    function addDeleteLink($fields, add) {
 
         var $deleteLink = $('<a href="#" class="btn btn-danger del_field">Supprimer</a>');
 
-        $fields.children(".well").append($deleteLink);
+        if (!add) {
+            $fields.children(".well").append($deleteLink);
+        } else {
+            $fields.append($deleteLink);
+        }
 
-        $deleteLink.click(function (e) {
-            e.preventDefault();
+        $deleteLink.click(function () {
             $fields.remove();
             return false;
         });
     }
+
 
 })
 ;

@@ -16,9 +16,13 @@
                     <span class="caret"></span></a>
 
                 <ul class="dropdown-menu">
-                    <li><a href="#">Figure 1</a></li>
-                    <li><a href="#">Figure 2</a></li>
-                    <li><a href="#">Figure 3</a></li>
+
+                    {% for group in groupsFigure %}
+
+                        <li><a href="{{ path("group_figure", {'id' : group.id}) }}">{{ group.name }}</a></li>
+
+                    {% endfor %}
+
                 </ul>
 
             </li>

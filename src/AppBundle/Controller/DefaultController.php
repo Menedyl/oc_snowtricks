@@ -27,7 +27,6 @@ class DefaultController extends Controller
      *      defaults={"page" : 1},
      *      requirements={"id" : "\d+", "page" : "\d+"}),
      *      options={"expose" = true}
-     * @ParamConverter("figure")
      */
     public function commentAction(Request $request, Figure $figure, $page)
     {
@@ -35,19 +34,13 @@ class DefaultController extends Controller
         $comment = new Comment();
 
         /** @var Form $formComment */
-        $formComment = $this->createForm(CommentType::class, $comment, array(
-            'attr' => array('id' => 'form_comment')
-        ));
+        $formComment = $this->createForm(CommentType::class, $comment);
 
+        $formComment->handleRequest($request);
 
-        if ($request->isMethod('POST') && $formComment->handleRequest($request)->isValid()) {
-            $figure->addComment($comment);
+        if ($formComment->isSubmitted() && $formComment->isValid()) {
 
-
-            $comment->setUser($this->getUser());
-
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $this->get('app.comment')->add($comment, $figure, $this->getUser());
         }
 
         $listComments = $this->getDoctrine()->getRepository("AppBundle:Comment")
@@ -55,11 +48,7 @@ class DefaultController extends Controller
 
         $nbPages = ceil(count($listComments) / self::NB_COMMENT_PER_PAGE);
 
-        // if ($page > $nbPages) {
-        //    throw new NotFoundHttpException("La page demandé n'existe pas.");
-        // }
-
-        return $this->render("comment.html.twig", array(
+        return $this->render(":figure:comment.html.twig", array(
             'listComments' => $listComments,
             'nbPages' => $nbPages,
             'page' => $page,
@@ -110,5 +99,14 @@ class DefaultController extends Controller
         ));
     }
 
+    public function menuAction(){
 
+        $em = $this->getDoctrine()->getManager();
+
+        $groupsFigure = $em->getRepository("AppBundle:GroupFigure")->findAll();
+
+        return $this->render("menu.html.twig", array(
+            'groupsFigure' => $groupsFigure
+        ));
+    }
 }

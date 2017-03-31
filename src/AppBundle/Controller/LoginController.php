@@ -22,19 +22,13 @@ class LoginController extends Controller
         /** @var User $user */
         $user = new User();
 
-        $formUser = $this->createForm(UserType::class, $user, array(
-            'attr' => array('id' => 'form_signup'),
-        ));
+        $formUser = $this->createForm(UserType::class, $user);
 
-        if ($request->IsMethod("POST") && $formUser->handleRequest($request)->isValid()) {
+        $formUser->handleRequest($request);
 
-            $user->setPassword(
-                $this->get('security.password_encoder')
-                    ->encodePassword($user, $user->getPassword()));
+        if ($formUser->isSubmitted() && $formUser->isValid()) {
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            $this->get('app.login')->registration($user);
 
             $this->addFlash('info', 'Inscription réussit');
 
@@ -69,7 +63,6 @@ class LoginController extends Controller
      */
     public function logoutAction()
     {
-
     }
 
     /**
@@ -83,27 +76,20 @@ class LoginController extends Controller
 
         $formUser = $this->createForm(UserType::class, $user);
 
-        if ($request->isMethod("POST") && $formUser->handleRequest($request)->isValid()) {
+        $formUser->handleRequest($request);
 
-            $user->setPassword(
-                $this->get('security.password_encoder')
-                    ->encodePassword($user, $user->getPassword())
-            );
+        if ($formUser->isSubmitted() && $formUser->isValid()) {
 
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $this->get('app.login')->account($user);
 
             $this->addFlash('info', 'Modification du compte validé');
 
             $this->redirectToRoute("account");
         }
 
-
         return $this->render(":login:account.html.twig", array(
             'user' => $user,
             'formUser' => $formUser->createView()
         ));
-
     }
-
 }

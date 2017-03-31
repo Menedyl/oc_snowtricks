@@ -69,7 +69,8 @@
 
 
     </div>
-    {% include "menu.html.twig" %}
+
+    {{ render(controller("AppBundle:Default:menu")) }}
 
     {% for message in app.session.flashbag.get('info') %}
 

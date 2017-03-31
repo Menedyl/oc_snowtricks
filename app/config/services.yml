@@ -1,4 +1,18 @@
 parameters:
 
 services:
+    app.figure:
+        class: AppBundle\Figure\FigureManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
 
+    app.login:
+        class: AppBundle\Login\LoginManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@security.password_encoder"
+
+    app.comment:
+        class: AppBundle\Comment\CommentManager
+        arguments:
+            - "@doctrine.orm.entity_manager"

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -47,7 +48,6 @@ class Avatar
 
     public function __construct()
     {
-        $this->url = "";
         $this->alt = "Avatar";
     }
 
@@ -99,8 +99,14 @@ class Avatar
      */
     public function preUpload()
     {
+
         if ($this->file == null) {
-            return;
+
+            copy(__DIR__ . '/../../../web/uploads/img/default/DefaultAvatar.png',
+                __DIR__ . '/../../../web/uploads/img/default/Avatar.png');
+
+            $this->file = new File(__DIR__ . '/../../../web/uploads/img/default/Avatar.png');
+
         }
 
         $this->url = $this->file->guessExtension();
@@ -113,12 +119,9 @@ class Avatar
      */
     public function upload()
     {
-        if ($this->file == null) {
-            return;
-        }
 
         if ($this->tempFilename !== null) {
-            $oldFile = $this->getUploadRootDir() . '/' . $this->id . '.' . $this->tempFilename;
+            $oldFile = $this->getUploadRootDir() . $this->id . '.' . $this->tempFilename;
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
@@ -138,7 +141,7 @@ class Avatar
 
     public function getUploadDir()
     {
-        return 'uploads/img';
+        return 'uploads/img/';
     }
 
     /**
@@ -146,7 +149,7 @@ class Avatar
      */
     public function PreRemoveUpload()
     {
-        $this->tempFilename = $this->getUploadRootDir() . '/' . $this->id . '.' . $this->url;
+        $this->tempFilename = $this->getUploadRootDir() . $this->id . '.' . $this->url;
     }
 
     /**
@@ -161,7 +164,7 @@ class Avatar
 
     public function getWebPath()
     {
-        return $this->getUploadDir() . '/' . $this->getId() . '.' . $this->getUrl();
+        return $this->getUploadDir() . $this->getId() . '.' . $this->getUrl();
     }
 
     /**

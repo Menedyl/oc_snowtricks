@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Figure;
+use AppBundle\Entity\GroupFigure;
 use AppBundle\Form\FigureType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,11 +18,10 @@ class FigureController extends Controller
 {
     /**
      * @Route("/figure/{id}", name="figure", requirements={"id" : "\d+"})
-     * @ParamConverter("figure")
      */
     public function figureAction(Figure $figure)
     {
-        return $this->render('figure.html.twig', array(
+        return $this->render('figure/figure.html.twig', array(
             'figure' => $figure
         ));
     }
@@ -38,81 +38,70 @@ class FigureController extends Controller
         /** @var Form $form */
         $addForm = $this->createForm(FigureType::class, $figure);
 
-        if ($request->isMethod('POST') && $addForm->handleRequest($request)->isValid()) {
-            $figure->setUser($this->getUser());
+        $addForm->handleRequest($request);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($figure);
-            $em->flush();
-            $this->addFlash('info', 'Figure enregistré avec succès');
+        if ($addForm->isSubmitted() && $addForm->isValid()) {
+
+            $this->get('app.figure')->add($figure, $this->getUser());
+
+            $this->addFlash('info', 'FigureManager enregistré avec succès');
 
             return $this->redirectToRoute("figure", array('id' => $figure->getId()));
         }
 
 
-        return $this->render("add_figure.html.twig", array("form" => $addForm->createView()));
+        return $this->render(":figure:form_figure.html.twig", array("form" => $addForm->createView()));
     }
 
     /**
      * @Route("/edit/{id}", name="edit_figure", requirements={"id" : "\d+"})
-     * @ParamConverter("figure")
      * @Security("has_role('ROLE_USER')")
      */
     public function editAction(Request $request, Figure $figure)
     {
 
-        $em = $this->getDoctrine()->getManager();
-
-        $originalImages = new ArrayCollection();
-
-        foreach ($figure->getImages() as $image) {
-            $originalImages->add($image);
-        }
-
-        $originalVideos = new ArrayCollection();
-
-        foreach ($figure->getVideos() as $video) {
-            $originalVideos->add($video);
-        }
+        $ancientImages = $this->get('app.figure')->saveTemp($figure->getImages());
+        $ancientVideos = $this->get('app.figure')->saveTemp($figure->getVideos());
 
         /** @var Form $form */
         $editForm = $this->createForm(FigureType::class, $figure);
 
-        if ($request->isMethod("POST") && $editForm->handleRequest($request)->isValid()) {
+        $editForm->handleRequest($request);
 
-            foreach ($originalImages as $image) {
-                if (!$figure->getImages()->contains($image)) {
-                    $em->remove($image);
-                }
-            }
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
 
-            foreach ($originalVideos as $video) {
-                if (!$figure->getVideos()->contains($video)) {
-                    $em->remove($video);
-                }
-            }
-
-            $em->persist($figure);
-            $em->flush();
+            $this->get('app.figure')->edit($figure, $ancientImages, $ancientVideos);
 
             return $this->redirectToRoute("figure", array("id" => $figure->getId()));
         }
 
-        return $this->render("edit_figure.html.twig", array("form" => $editForm->CreateView()));
+        return $this->render(":figure:form_figure.html.twig", array("form" => $editForm->CreateView()));
     }
 
     /**
      * @Route("/delete/{id}", name="delete_figure", requirements={"id" : "\d+"})
-     * @ParamConverter("figure")
      * @Security("has_role('ROLE_USER')")
      */
     public function deleteAction(Figure $figure)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($figure);
-        $em->flush();
+
+        $this->get('app.figure')->delete($figure);
 
         return $this->redirectToRoute("home");
+    }
+
+    /**
+     * @Route("/group/{id}", name="group_figure", requirements={"id" : "\d+"})
+     */
+    public function figureByGroupFigureAction(GroupFigure $groupFigure)
+    {
+
+        $figures = $this->getDoctrine()->getManager()->getRepository("AppBundle:Figure")->findByGroupFigure($groupFigure);
+
+        return $this->render("home.html.twig", array(
+            'figures' => $figures
+        ));
+
     }
 
 
