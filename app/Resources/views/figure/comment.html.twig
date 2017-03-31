@@ -2,28 +2,7 @@
 
     {% if is_granted('ROLE_USER') %}
 
-        <div id="comment_form_figure">
-
-            {{ form_start(formComment) }}
-
-            <fieldset>
-                <legend>
-                    Poster un message
-                </legend>
-
-                <div class="form-group">
-                    {{ form_row(formComment.content) }}
-                </div>
-
-                <button type="submit" id="btn_valid_form" class="btn btn-primary">Envoyer</button>
-
-                {{ form_rest(formComment) }}
-
-            </fieldset>
-
-            {{ form_end(formComment) }}
-
-        </div>
+        {% include ":figure:form_comment.html.twig" %}
 
     {% else %}
 

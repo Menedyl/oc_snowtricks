@@ -1,0 +1,28 @@
+<div id="comment_form_figure">
+
+    {{ form_start(formComment, {'attr' : {'id' : 'form_comment'}}) }}
+
+    <fieldset>
+        <legend>
+            Poster un message
+        </legend>
+
+        <div class="form-group">
+
+            {{ form_label(formComment.content, null, {'label_attr' : {'class' : 'control-label', 'hidden' : 'true'}}) }}
+
+            {{ form_errors(formComment.content) }}
+
+            {{ form_widget(formComment.content, {'attr' : {'class' : 'form-control'}}) }}
+
+        </div>
+
+        <button type="submit" id="btn_valid_form" class="btn btn-primary">Envoyer</button>
+
+        {{ form_rest(formComment) }}
+
+    </fieldset>
+
+    {{ form_end(formComment) }}
+
+</div>

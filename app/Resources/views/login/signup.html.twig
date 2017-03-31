@@ -9,7 +9,7 @@
 
 {% block body %}
 
-    {{ form_start(formUser) }}
+    {{ form_start(formUser, {'attr' : {'id' : 'form_signup'}}) }}
 
     <fieldset>
 
@@ -47,7 +47,10 @@
             <div class="col-sm-6">
                 <div class="form-group group_login">
 
-                    {{ form_row(formUser.avatar) }}
+                    {{ form_label(formUser.avatar, 'Votre avatar :', {'label_attr' : {'class' : 'control-label'}}) }}
+
+                    {{ form_widget(formUser.avatar) }}
+
 
                 </div>
             </div>

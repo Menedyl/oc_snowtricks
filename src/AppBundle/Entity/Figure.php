@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Figure
+ * FigureManager
  *
  * @ORM\Table(name="figure")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FigureRepository")
@@ -44,13 +44,6 @@ class Figure
      * @ORM\Column(name="rating", type="integer")
      */
     private $rating;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="group_figure", type="string", length=255, nullable=true)
-     */
-    private $groupFigure;
 
     /**
      * @var \DateTime
@@ -95,6 +88,13 @@ class Figure
      * @ORM\ManyToOne(targetEntity="User")
      */
     private $user;
+
+    /**
+     * @var GroupFigure
+     *
+     * @ORM\ManyToOne(targetEntity="GroupFigure", inversedBy="figures", cascade={"persist"})
+     */
+    private $groupFigure;
 
 
     public function __construct()
@@ -186,7 +186,7 @@ class Figure
     /**
      * Get groupFigure
      *
-     * @return string
+     * @return GroupFigure
      */
     public function getGroupFigure()
     {
@@ -196,7 +196,7 @@ class Figure
     /**
      * Set groupFigure
      *
-     * @param string $groupFigure
+     * @param GroupFigure $groupFigure
      */
     public function setGroupFigure($groupFigure)
     {
@@ -358,4 +358,6 @@ class Figure
     {
         return $this->user;
     }
+
+
 }

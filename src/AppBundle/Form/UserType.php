@@ -11,6 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
@@ -23,12 +26,31 @@ class UserType extends AbstractType
             ->add('username', TextType::class, array(
                 'label' => 'Entrer votre pseudonyme :',
                 'label_attr' => array('class' => 'control-label'),
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+
+                'constraints' => array(
+                    new NotBlank(array(
+                        'message' => 'Ce champ ne peut être vide.'
+                    )),
+                    new Length(array(
+                        'min' => 5,
+                        'max' => 20,
+                        'minMessage' => '5 caractères minimum.',
+                        'maxMessage' => '20 caractères maximum.'
+                    ))
+                )
             ))
             ->add('email', EmailType::class, array(
                 'label' => 'Entrer votre adresse mail :',
                 'label_attr' => array('class' => 'control-label'),
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+
+                'constraints' => array(
+                    new Email(array(
+                        'checkMX' => true,
+                        'message' => "L'email n'est pas valide."
+                    ))
+                )
             ))
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
@@ -44,11 +66,18 @@ class UserType extends AbstractType
                     'label' => 'Répéter votre mot de passe :',
                     'label_attr' => array('class' => 'control-label'),
                     'attr' => array('class' => 'form-control')
-                )))
+                ),
+
+                'constraints' => array(
+                    new Length(array(
+                        'min' => 6,
+                        'minMessage' => '6 caractères minimum.'
+                    ))
+                )
+            ))
             ->add('avatar', AvatarType::class, array(
                 'label' => 'Avatar :'
-            ))
-        ;
+            ));
     }
 
     /**

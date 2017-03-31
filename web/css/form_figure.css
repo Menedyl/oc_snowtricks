@@ -45,3 +45,7 @@ legend {
     padding: 0.5%;
     margin-top: 2%;
 }
+
+.error_form{
+    color: red;
+}

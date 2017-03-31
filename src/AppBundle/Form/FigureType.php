@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -9,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class FigureType extends AbstractType
 {
@@ -19,14 +22,23 @@ class FigureType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array(
-                'label' => 'Nom de la figure :',
-                'label_attr' => array('class' => 'control-label'),
-                'attr' => array('class' => 'form-control')
+                'constraints' => array(
+                    new NotBlank(array(
+                        'message' => 'Ce champ ne peut être vide.'
+                    )),
+                    new Length(array(
+                        'min' => 5,
+                        'max' => 40,
+                        'minMessage' => '5 caractères minimum.',
+                        'maxMessage' => '40 caractères maximum.')),
+                )
             ))
             ->add('content', TextareaType::class, array(
-                'label' => 'Description de la figure :',
-                'label_attr' => array('class' => 'control-label'),
-                'attr' => array('class' => 'form-control')
+                'constraints' => array(
+                    new NotBlank(array(
+                        'message' => 'Ce champ ne peut être vide.'
+                    ))
+                )
             ))
             ->add('rating', ChoiceType::class, array(
                 'choices' => array(
@@ -34,30 +46,40 @@ class FigureType extends AbstractType
                     'Amateur' => 2,
                     'Confirmé' => 3,
                     'Expert' => 4,
-                    "Pro" => 5),
-                'label' => 'Difficulté de la figure :',
-                'label_attr' => array('class' => 'control-label'),
-                'attr' => array('class' => 'form-control')
+                    'Pro' => 5),
+                'placeholder' => 'Choisissez une difficultée ...',
+
+                'constraints' => array(
+                    new NotBlank(array(
+                        'message' => 'Sélection requise.'
+                    ))
+                )
             ))
-            ->add('groupFigure', ChoiceType::class, array(
-                'choices' => array(
-                    'Groupe 1' => 'Groupe 1',
-                    'Groupe 2' => 'Groupe 2',
-                    'Groupe 3' => 'Groupe 3'),
-                'label' => 'Groupe de figure :',
-                'label_attr' => array('class' => 'control-label'),
-                'attr' => array('class' => 'form-control')
+            ->add('groupFigure', EntityType::class, array(
+                'class' => 'AppBundle\Entity\GroupFigure',
+                'choice_label' => 'name',
+                'placeholder' => 'Choisissez un groupe ...',
+
+                'constraints' => array(
+                    new NotBlank(array(
+                        'message' => 'Sélection requise.'
+                    ))
+                )
             ))
             ->add('images', CollectionType::class, array(
                 'by_reference' => false,
                 'entry_type' => ImageType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'label' => 'Images :',
-                'label_attr' => array('class' => 'control-label'),
+
                 'entry_options' => array(
-                    'attr' => array('class' => 'well'),
-                    'label_attr' => array('hidden' => 'true')
+                    'attr' => array('class' => 'well image'),
+                    'label_attr' => array('hidden' => true)),
+
+                'constraints' => array(
+                    new NotBlank(array(
+                        'message' => 'Au moins 1 image doit être présente.'
+                    )),
                 )
             ))
             ->add('videos', CollectionType::class, array(
@@ -65,11 +87,14 @@ class FigureType extends AbstractType
                 'entry_type' => VideoType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'label' => 'Videos :',
-                'label_attr' => array('class' => 'control-label'),
+
                 'entry_options' => array(
-                    'attr' => array('class' => 'well'),
-                    'label_attr' => array('hidden' => true))
+                    'attr' => array('class' => 'well video'),
+                    'label_attr' => array('hidden' => true)),
+
+                'constraints' => array(
+                    new NotBlank()
+                )
             ));
 
     }

@@ -14,7 +14,7 @@
         <h3 class="name_figure">{{ figure.name }}</h3>
         <br>
 
-        {% include "carousel.html.twig" %}
+        {% include ":figure:carousel.html.twig" %}
 
         <br>
         <br>
@@ -52,7 +52,7 @@
             <div class="col-sm-5">
 
                 <p class="group_figure">
-                    <strong>Groupe de figure :</strong> <a href="#">{{ figure.groupFigure }}</a>
+                    <strong>Groupe de figure :</strong> <a href="#">{{ figure.groupFigure.name }}</a>
                 </p>
 
                 <br>

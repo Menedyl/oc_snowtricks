@@ -1,0 +1,152 @@
+{% extends "layout.html.twig" %}
+
+{% block stylesheets %}
+
+    <link href="{{ asset("css/form_figure.css") }}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block body %}
+
+    {{ form_start(form) }}
+
+
+    <fieldset>
+
+        <legend>
+            {% if app.request.pathinfo == '/add' %}
+                Ajouter une figure
+
+            {% else %}
+                Modifier une figure
+
+            {% endif %}
+
+        </legend>
+
+        <div class="row">
+
+            <div class="col-sm-6">
+
+                <div class="form-group">
+
+                    {{ form_label(form.name, 'Nom de la figure :',
+                    {'label_attr' : {'class' : 'control-label'}}
+                    ) }}
+
+                    {{ form_errors(form.name) }}
+
+                    {{ form_widget(form.name,
+                    {'attr' : {'class' : 'form-control'}}
+                    ) }}
+
+                </div>
+
+
+                <div class="form-group">
+
+                    {{ form_label(form.content, 'Description de la figure :',
+                    {'label_attr' : {'class' : 'control-label'}}
+                    ) }}
+
+                    {{ form_errors(form.content) }}
+
+                    {{ form_widget(form.content,
+                    {'attr' : {'class' : 'form-control'}}
+                    ) }}
+
+                </div>
+
+
+            </div>
+
+            <div class="col-sm-6">
+
+                <div class="form-group">
+
+                    {{ form_label(form.groupFigure, 'Groupe de figure :',
+                    {'label_attr' : {'class' : 'control-label'}}
+                    ) }}
+
+                    {{ form_errors(form.groupFigure) }}
+
+                    {{ form_widget(form.groupFigure,
+                    {'attr' : {'class' : 'form-control'}}
+                    ) }}
+
+                </div>
+
+
+                <div class="form-group">
+
+                    {{ form_label(form.rating, 'Difficulté de la figure :',
+                    {'label_attr' : {'class' : 'control-label'}}
+                    ) }}
+
+                    {{ form_errors(form.rating) }}
+
+                    {{ form_widget(form.rating,
+                    {'attr' : {'class' : 'form-control'}}
+                    ) }}
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+
+                    {{ form_label(form.images, 'Images :',
+                    {'label_attr' : {'class' : 'control-label'}}
+                    ) }}
+
+                    {{ form_errors(form.images) }}
+
+                    {{ form_widget(form.images) }}
+
+                    <a href="#" id="add_image" class="btn btn-primary">Ajouter une image</a>
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+
+                    {{ form_label(form.videos, 'Videos :',
+                    {'label_attr' : {'class' : 'control-label'}}
+                    ) }}
+
+                    {{ form_errors(form.videos) }}
+
+                    {{ form_widget(form.videos) }}
+
+                    <a href="#" id="add_video" class="btn btn-primary">Ajouter une video</a>
+
+                </div>
+            </div>
+
+        </div>
+
+        <button type="submit" id="btn_valid" class="btn btn-primary">Valider</button>
+
+        {{ form_rest(form) }}
+
+    </fieldset>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
+
+{% block scripts %}
+
+    <script src="{{ asset('js/form_figure.js') }}" rel="stylesheet"></script>
+
+{% endblock %}
