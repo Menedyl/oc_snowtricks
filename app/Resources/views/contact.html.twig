@@ -1,0 +1,59 @@
+{% extends '::layout.html.twig' %}
+
+{% block stylesheets %}
+
+    <link href="{{ asset("css/form_contact.css") }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="info_contact">
+        <p>
+            Pour nous joindre, vous pouvez remplir ce formulaire avec les champs indiqué.
+        </p>
+
+    </div>
+
+    <div class="form_contact">
+
+        {{ form_start(formContact) }}
+
+        <fieldset>
+
+            <legend>Contact</legend>
+
+            <div class="form-group">
+
+                {{ form_label(formContact.name, 'Votre nom :', {'label_attr' : {'class' : 'control-label'}}) }}
+
+                {{ form_widget(formContact.name, {'attr' : {'class' : 'form-control'}}) }}
+
+            </div>
+
+            <div class="form-group">
+
+                {{ form_label(formContact.mail, 'Votre mail :', {'label_attr' : {'class' : 'control-label'}}) }}
+
+                {{ form_widget(formContact.mail, {'attr' : {'class' : 'form-control'}}) }}
+
+            </div>
+
+            <div class="form-group">
+
+                {{ form_label(formContact.message, 'Votre message :', {'label_attr' : {'class' : 'control-label'}}) }}
+
+                {{ form_widget(formContact.message, {'attr' : {'class' : 'form-control'}}) }}
+
+            </div>
+
+            <button type="submit" id="btn_valid" class="btn btn-primary">Envoyer</button>
+
+            {{ form_rest(formContact) }}
+
+        </fieldset>
+
+        {{ form_end(formContact) }}
+
+    </div>
+{% endblock %}

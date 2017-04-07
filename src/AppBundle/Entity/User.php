@@ -40,11 +40,6 @@ class User implements UserInterface, \Serializable
     private $roles;
 
     /**
-     * @ORM\Column(name="is_active", type="boolean")
-     */
-    private $isActive;
-
-    /**
      * @var Avatar
      *
      * @ORM\OneToOne(targetEntity="Avatar", cascade={"persist","remove"})
@@ -133,26 +128,6 @@ class User implements UserInterface, \Serializable
         $this->email = $email;
     }
 
-    /**
-     * Get isActive
-     *
-     * @return boolean
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
-
-    /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-    }
-
     public function getSalt()
     {
         return null;
@@ -169,7 +144,6 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            $this->isActive
         ));
     }
 
@@ -180,7 +154,6 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            $this->isActive
             ) = unserialize($serialized);
     }
 
@@ -197,11 +170,6 @@ class User implements UserInterface, \Serializable
     public function isCredentialsNonExpired()
     {
         return true;
-    }
-
-    public function isEnabled()
-    {
-        return $this->isActive;
     }
 
 

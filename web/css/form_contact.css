@@ -1,5 +1,6 @@
 .form-control {
     border-radius: 0.3em;
+    max-width: 95%;
     margin: 0 1% 0 1%;
 }
 
@@ -22,10 +23,6 @@ legend {
     margin-bottom: 1%;
 }
 
-#appbundle_figure_content{
-    resize: vertical;
-}
-
 #btn_valid {
     float: right;
     padding: 1%;
@@ -35,18 +32,10 @@ legend {
     font-size: 1.4em;
 }
 
-#add_image, #add_video{
-    float: left;
-    padding: 0.5%;
-    margin: 1% 0 1% 0;
-}
-
-.del_field{
-    padding: 0.5%;
-    margin-top: 2%;
-}
-
-.error_form{
+.error_form {
     color: red;
 }
 
+.info_contact {
+    text-align: center;
+}

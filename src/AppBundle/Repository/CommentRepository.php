@@ -14,7 +14,7 @@ class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
     public function findLast($max)
     {
-        return $query = $this->createQueryBuilder('c')
+        return $this->createQueryBuilder('c')
             ->innerJoin('c.figure', 'figure')
             ->addSelect('figure')
             ->orderBy('c.dateCreate', 'DESC')

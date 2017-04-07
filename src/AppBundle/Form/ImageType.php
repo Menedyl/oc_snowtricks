@@ -36,7 +36,7 @@ class ImageType extends AbstractType
                 )
             ))
             ->add('alt', TextType::class, array(
-                'label' => 'Nom :',
+                'label' => "Nom de l'image :",
                 'label_attr' => array('class' => 'control-label'),
                 'attr' => array('class' => 'form-control'),
 
@@ -48,7 +48,7 @@ class ImageType extends AbstractType
                         'min' => 3,
                         'max' => 24,
                         'minMessage' => '3 caractères minimum.',
-                        'maxMessage' => '24 caractères maximum'
+                        'maxMessage' => '24 caractères maximum.'
                     ))
                 )
             ));

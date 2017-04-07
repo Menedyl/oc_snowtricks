@@ -8,80 +8,81 @@
 
     {% block body %}
 
-    <div id="figure">
+        <div id="figure">
 
 
-        <h3 class="name_figure">{{ figure.name }}</h3>
-        <br>
+            <h3 class="name_figure">{{ figure.name }}</h3>
+            <br>
 
-        {% include ":figure:carousel.html.twig" %}
+            {% include ":figure:carousel.html.twig" %}
 
-        <br>
-        <br>
-
-
-        <div class="rating_figure">
+            <br>
+            <br>
 
 
-            {% for i in 1..figure.rating %}
-                <span class="glyphicon glyphicon-star" style="color: #0088CC"></span>
-            {% endfor %}
+            <div class="rating_figure">
 
 
-            {% if figure.rating < 5 %}
-
-                {% set star_empty = 5 - figure.rating %}
-
-                {% for i in 1..star_empty %}
-                    <span class="glyphicon glyphicon-star-empty"></span>
+                {% for i in 1..figure.rating %}
+                    <span class="glyphicon glyphicon-star" style="color: #0088CC"></span>
                 {% endfor %}
 
-            {% endif %}
 
-        </div>
+                {% if figure.rating < 5 %}
 
-        <br>
+                    {% set star_empty = 5 - figure.rating %}
 
-        <p>
-            {{ figure.content }}
-        </p>
+                    {% for i in 1..star_empty %}
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    {% endfor %}
 
-        <br>
-
-        <div class="row">
-            <div class="col-sm-5">
-
-                <p class="group_figure">
-                    <strong>Groupe de figure :</strong> <a href="#">{{ figure.groupFigure.name }}</a>
-                </p>
-
-                <br>
-
-                <p id="video_view">
-                    <strong>Vidéos :</strong>
-                </p>
-
-                {% for video in figure.videos %}
-
-                    <a href="{{ video.url }}" >{{ video.alt }}</a><br>
-
-                {% endfor %}
-
+                {% endif %}
 
             </div>
 
-            <div id="figure_comment" class="col-sm-7">
+            <br>
 
-                <div id="comment_figure">
+            <p>
+                {{ figure.content }}
+            </p>
+
+            <br>
+
+            <div class="row">
+                <div class="col-sm-5">
+
+                    <p class="group_figure">
+                        <strong>Groupe de figure :</strong> <a href="{{ path("group_figure", {'id' : figure.groupFigure.id}) }}">{{ figure.groupFigure.name }}</a>
+                    </p>
+
+                    <br>
+
+                    <p id="video_view">
+                        <strong>Vidéos :</strong>
+                    </p>
+
+                    <br>
+
+                    {% for video in figure.videos %}
+
+                        <embed width="380" height="300" src="{{ video.url }}">{{ video.alt }}</embed>
+
+                    {% endfor %}
 
                 </div>
 
+                <div id="figure_comment" class="col-sm-7">
+
+                    <div id="comment_figure">
+
+                    </div>
+
+                </div>
             </div>
+
         </div>
 
-    </div>
-
-{% endblock %}
+    {% endblock %}
 
 {% block scripts %}
 

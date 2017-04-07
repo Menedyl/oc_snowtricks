@@ -61,14 +61,19 @@ class FigureRepository extends \Doctrine\ORM\EntityRepository
         return new Paginator($query, true);
     }
 
-    public function findByGroupFigure(GroupFigure $groupFigure)
+    public function findByGroupFigure(GroupFigure $groupFigure, $page, $nbPerPage)
     {
 
-        return $query = $this->createQueryBuilder('f')
+        $query = $this->createQueryBuilder('f')
             ->where('f.groupFigure = :groupFigure')
             ->setParameter('groupFigure', $groupFigure)
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
+
+        $query
+            ->setFirstResult(($page - 1) * $nbPerPage)
+            ->setMaxResults($nbPerPage);
+
+        return new Paginator($query, true);
     }
 
 }

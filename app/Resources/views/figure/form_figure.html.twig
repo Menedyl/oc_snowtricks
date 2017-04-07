@@ -15,13 +15,9 @@
     <fieldset>
 
         <legend>
-            {% if app.request.pathinfo == '/add' %}
-                Ajouter une figure
 
-            {% else %}
-                Modifier une figure
-
-            {% endif %}
+            {% block legend_form %}
+            {% endblock %}
 
         </legend>
 
