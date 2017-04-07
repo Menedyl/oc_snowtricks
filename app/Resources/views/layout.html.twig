@@ -41,7 +41,7 @@
                         </button>
                     </a>
 
-                    <a href="{{ path('app_login_logout') }}">
+                    <a href="{{ path('app_user_logout') }}">
                         <button  type="button" class="btn btn-primary btn-sm btn_login_right">
                             Deconnexion
                         </button>
@@ -97,8 +97,6 @@
 </div>
 
 {% block scripts %}
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 {% endblock %}
 </body>
 

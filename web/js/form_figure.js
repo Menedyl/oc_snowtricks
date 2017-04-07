@@ -1,19 +1,20 @@
 $(document).ready(function () {
 
+    var images = $('.image');
+    var videos = $('.video');
 
     var $formImage = $("div#appbundle_figure_images");
-    var indexImage = $('.image').length;
+    var indexImage = images.length;
 
     var $formVideo = $("div#appbundle_figure_videos");
-    var indexVideo = $('.video').length;
-
+    var indexVideo = videos.length;
 
     if (indexImage < 1) {
         addImage($formImage);
     }
 
     if (indexImage > 1) {
-        $('.image').each(function (index) {
+        images.each(function (index) {
             if (index > 0) {
                 addDeleteLink($(this), true);
             }
@@ -21,7 +22,7 @@ $(document).ready(function () {
     }
 
     if (indexVideo > 0){
-        $('.video').each(function(){
+        videos.each(function(){
             addDeleteLink($(this), true);
         });
     }

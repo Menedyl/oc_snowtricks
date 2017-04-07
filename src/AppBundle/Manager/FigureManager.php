@@ -1,22 +1,25 @@
 <?php
 
-namespace AppBundle\Figure;
+namespace AppBundle\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Figure;
 use AppBundle\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 
 class FigureManager
 {
+    /**
+     * @var EntityManagerInterface
+     */
     protected $em;
 
     /**
      * FigureManager constructor.
-     * @param EntityManager $em
+     * @param EntityManagerInterface $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
@@ -62,15 +65,15 @@ class FigureManager
      * @param Collection $collection
      * @return ArrayCollection
      */
-    public function saveTemp(Collection $collection)
+    public function oldSaveCollection(Collection $collection)
     {
-        $save = new ArrayCollection();
+        $oldCollection = new ArrayCollection();
 
         foreach ($collection as $item) {
-            $save->add($item);
+            $oldCollection->add($item);
         }
 
-        return $save;
+        return $oldCollection;
     }
 
     /**

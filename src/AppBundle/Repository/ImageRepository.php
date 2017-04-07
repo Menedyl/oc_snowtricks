@@ -12,7 +12,7 @@ class ImageRepository extends \Doctrine\ORM\EntityRepository
 {
     public function findLast($max)
     {
-        return $query = $this->createQueryBuilder('i')
+        return $this->createQueryBuilder('i')
             ->innerJoin('i.figure', 'figure')
             ->addSelect('figure')
             ->orderBy('i.dateCreate', 'DESC')

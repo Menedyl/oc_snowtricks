@@ -45,7 +45,6 @@ class Image
 
     /**
      * @ORM\ManyToOne(targetEntity="Figure", inversedBy="images")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $figure;
 
@@ -58,7 +57,7 @@ class Image
     /**
      * @ORM\PreRemove
      */
-    public function removeEntity()
+    public function removeImage()
     {
         $this->getFigure()->setDateModif(new \DateTime());
     }

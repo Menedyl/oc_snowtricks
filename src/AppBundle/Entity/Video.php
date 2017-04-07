@@ -37,6 +37,20 @@ class Video
     private $alt;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="host", type="string", length=255)
+     */
+    private $host;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="identifier", type="string", length=255)
+     */
+    private $identifier;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreate", type="datetime")
@@ -45,7 +59,6 @@ class Video
 
     /**
      * @ORM\ManyToOne(targetEntity="Figure", inversedBy="videos")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $figure;
 
@@ -151,4 +164,63 @@ class Video
     {
         $this->dateCreate = $dateCreate;
     }
+
+    /**
+     * Get identifier
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * Set identifier
+     *
+     * @param string $identifier
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preFlush()
+    {
+        if ($this->host === 'youtube') {
+
+            $this->url = "http://" . $this->getHost() . '.com/embed/' . $this->identifier;
+
+        } else {
+
+            $this->url = "http://" . $this->getHost() . '.com/embed/video/' . $this->identifier;
+
+        }
+    }
+
+    /**
+     * Get host
+     *
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
+    /**
+     * Set host
+     *
+     * @param string $host
+     */
+    public function setHost($host)
+    {
+        $this->host = $host;
+    }
+
+
 }

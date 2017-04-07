@@ -6,16 +6,18 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Figure;
 use AppBundle\Entity\GroupFigure;
 use AppBundle\Form\FigureType;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Validator\Constraints\Form;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class FigureController extends Controller
 {
+    const NB_FIGURE_PER_PAGE = 8;
+
+
     /**
      * @Route("/figure/{id}", name="figure", requirements={"id" : "\d+"})
      */
@@ -42,15 +44,15 @@ class FigureController extends Controller
 
         if ($addForm->isSubmitted() && $addForm->isValid()) {
 
-            $this->get('app.figure')->add($figure, $this->getUser());
+            $this->get('app.figure_manager')->add($figure, $this->getUser());
 
-            $this->addFlash('info', 'FigureManager enregistré avec succès');
+            $this->addFlash('info', 'Figure enregistré avec succès');
 
-            return $this->redirectToRoute("figure", array('id' => $figure->getId()));
+            return $this->redirectToRoute("home");
         }
 
 
-        return $this->render(":figure:form_figure.html.twig", array("form" => $addForm->createView()));
+        return $this->render("figure/form_add_figure.html.twig", array("form" => $addForm->createView()));
     }
 
     /**
@@ -60,8 +62,8 @@ class FigureController extends Controller
     public function editAction(Request $request, Figure $figure)
     {
 
-        $ancientImages = $this->get('app.figure')->saveTemp($figure->getImages());
-        $ancientVideos = $this->get('app.figure')->saveTemp($figure->getVideos());
+        $ancientImages = $this->get('app.figure_manager')->oldSaveCollection($figure->getImages());
+        $ancientVideos = $this->get('app.figure_manager')->oldSaveCollection($figure->getVideos());
 
         /** @var Form $form */
         $editForm = $this->createForm(FigureType::class, $figure);
@@ -70,12 +72,12 @@ class FigureController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
-            $this->get('app.figure')->edit($figure, $ancientImages, $ancientVideos);
+            $this->get('app.figure_manager')->edit($figure, $ancientImages, $ancientVideos);
 
             return $this->redirectToRoute("figure", array("id" => $figure->getId()));
         }
 
-        return $this->render(":figure:form_figure.html.twig", array("form" => $editForm->CreateView()));
+        return $this->render(":figure:form_edit_figure.html.twig", array("form" => $editForm->CreateView()));
     }
 
     /**
@@ -85,21 +87,34 @@ class FigureController extends Controller
     public function deleteAction(Figure $figure)
     {
 
-        $this->get('app.figure')->delete($figure);
+        $this->get('app.figure_manager')->delete($figure);
 
         return $this->redirectToRoute("home");
     }
 
     /**
-     * @Route("/group/{id}", name="group_figure", requirements={"id" : "\d+"})
+     * @Route("/group/{id}/{page}", name="group_figure", defaults={"page" : 1}, requirements={"id" : "\d+"})
      */
-    public function figureByGroupFigureAction(GroupFigure $groupFigure)
+    public function figureByGroupFigureAction(GroupFigure $groupFigure, $page)
     {
+        if ($page < 1) {
+            throw new NotFoundHttpException("La page demandé n'existe pas.");
+        }
 
-        $figures = $this->getDoctrine()->getManager()->getRepository("AppBundle:Figure")->findByGroupFigure($groupFigure);
+
+        $figures = $this->getDoctrine()->getManager()->getRepository("AppBundle:Figure")
+            ->findByGroupFigure($groupFigure, $page, self::NB_FIGURE_PER_PAGE);
+
+        $nbPages = ceil(count($figures) / self::NB_FIGURE_PER_PAGE);
+
+        if ($page > $nbPages) {
+            throw new NotFoundHttpException("La page demandé n'existe pas.");
+        }
 
         return $this->render("home.html.twig", array(
-            'figures' => $figures
+            'figures' => $figures,
+            "nbPages" => $nbPages,
+            "page" => $page
         ));
 
     }

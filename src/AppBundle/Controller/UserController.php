@@ -8,16 +8,14 @@ use AppBundle\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
-class LoginController extends Controller
+class UserController extends Controller
 {
     /**
      * @Route("/signup", name="signup")
      */
-    public function signupAction(Request $request)
+    public function createAction(Request $request)
     {
         /** @var User $user */
         $user = new User();
@@ -28,7 +26,7 @@ class LoginController extends Controller
 
         if ($formUser->isSubmitted() && $formUser->isValid()) {
 
-            $this->get('app.login')->registration($user);
+            $this->get('app.user_manager')->create($user);
 
             $this->addFlash('info', 'Inscription réussit');
 
@@ -68,7 +66,7 @@ class LoginController extends Controller
     /**
      * @Route("/account", name="account")
      */
-    public function accountAction(Request $request)
+    public function editAction(Request $request)
     {
 
         /** @var User $user */
@@ -80,7 +78,7 @@ class LoginController extends Controller
 
         if ($formUser->isSubmitted() && $formUser->isValid()) {
 
-            $this->get('app.login')->account($user);
+            $this->get('app.user_manager')->edit($user);
 
             $this->addFlash('info', 'Modification du compte validé');
 

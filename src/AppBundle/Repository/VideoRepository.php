@@ -13,7 +13,7 @@ class VideoRepository extends \Doctrine\ORM\EntityRepository
     public function findLast($max)
     {
 
-        return $query = $this->createQueryBuilder('v')
+        return $this->createQueryBuilder('v')
             ->innerJoin('v.figure', 'figure')
             ->addSelect('figure')
             ->orderBy('v.dateCreate', 'DESC')

@@ -21,10 +21,6 @@ nav {
     width: 65%;
 }
 
-.navbar-default .navbar-nav {
-    margin: auto;
-}
-
 .navbar-default .navbar-nav > li > a, .dropdown-menu > li > a {
     color: #0088CC;
 }
@@ -35,7 +31,7 @@ nav {
     border-radius: 10px;
 }
 
-#research {
+#research{
     float: right;
 }
 
@@ -113,4 +109,17 @@ nav {
 
 #btn_user a:hover{
     text-decoration: none;
+}
+
+#mentions_legales{
+    text-align: center;
+}
+
+.lexique{
+    text-align: center;
+}
+
+.lexique h3{
+    font-size: x-large;
+    font-weight: bold;
 }

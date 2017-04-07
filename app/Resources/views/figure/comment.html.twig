@@ -49,7 +49,7 @@
 
                 {% for p in range(1, nbPages) if nbPages != 0 %}
                     <li{% if p == page %} class="active"{% endif %}>
-                        <a class="pagin" {% if nbPages > 1 %}href="#"{% endif %}>{{ p }}</a>
+                        <a class="pagin" {% if nbPages < 1 %}href="#"{% endif %}>{{ p }}</a>
                     </li>
                 {% endfor %}
 
