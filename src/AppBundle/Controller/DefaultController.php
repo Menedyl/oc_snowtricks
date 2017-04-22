@@ -124,27 +124,33 @@ class DefaultController extends Controller
     }
 
     /** @Route("/contact", name="contact") */
-    public function contactAction(Request $request){
+    public function contactAction(Request $request)
+    {
 
         $formContact = $this->createForm(ContactType::class);
 
         $formContact->handleRequest($request);
 
-        if($formContact->isSubmitted() && $formContact->isValid()){
+        if ($formContact->isSubmitted() && $formContact->isValid()) {
 
-            /** @var \Swift_Message $mail */
+            /** @var \Swift_Mailer $mail */
             $mail = new \Swift_Message();
 
-            $mail->setSubject("Message provenant de SnowTricks");
-            $mail->setFrom($formContact->get('mail'));
-            $mail->setTo("nicolas.bostjancic@gmail.com");
-            $mail->setBody($formContact->get('message'));
+
+            $mail->setSubject("Message provenant de SnowTricks")
+                ->setFrom(array($formContact->get("mail")->getData() => $formContact->get('name')->getData()))
+                ->setTo("snowtricks.contact@bostjancic.fr")
+                ->setBody($formContact->get('message')->getData());
 
 
-            $this->get('swiftmailer.mailer')->send($mail);
+            $this->get('mailer')->send($mail);
+
+            $this->addFlash("info", "Message envoyé avec succès.");
+
+            return $this->redirectToRoute("home");
 
         }
 
-        return $this->render( "::contact.html.twig", array('formContact' => $formContact->createView()));
+        return $this->render("::contact.html.twig", array('formContact' => $formContact->createView()));
     }
 }

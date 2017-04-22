@@ -157,21 +157,15 @@ class User implements UserInterface, \Serializable
             ) = unserialize($serialized);
     }
 
-    public function isAccountNonExpired()
+    /**
+     * Get avatar
+     *
+     * @return Avatar
+     */
+    public function getAvatar()
     {
-        return true;
+        return $this->avatar;
     }
-
-    public function isAccountNonLocked()
-    {
-        return true;
-    }
-
-    public function isCredentialsNonExpired()
-    {
-        return true;
-    }
-
 
     /**
      * Set avatar
@@ -181,15 +175,5 @@ class User implements UserInterface, \Serializable
     public function setAvatar(Avatar $avatar)
     {
         $this->avatar = $avatar;
-    }
-
-    /**
-     * Get avatar
-     *
-     * @return Avatar
-     */
-    public function getAvatar()
-    {
-        return $this->avatar;
     }
 }
