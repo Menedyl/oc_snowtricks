@@ -14,10 +14,10 @@
 
                 {% for comment in recentComments %}
                     <div class="row">
-                        <div class="col-sm-9 news_comment">
+                        <div class="col-lg-9 news_comment">
 
                             <div class="news_info">
-                                <p class="news_name">
+                                <p class="news_name ">
                                     <strong>
                                         <a href="{{ path("figure", {"id" : comment.figure.id}) }}">{{ comment.figure.name }}</a>
                                     </strong>
@@ -27,16 +27,15 @@
                                     <em>Posté le {{ comment.dateCreate | date("d/m/Y à H:i:s") }}</em><br>
                                     <em>Par {{ comment.user.username }}</em>
                                 </p>
+
+                                <p class="news_media">{{ comment.content }}</p>
+
+                                <img src="{{ asset(comment.user.avatar.webPath) }}" alt="{{ comment.user.avatar.alt }}"
+                                     width="60" height="45">
+
                             </div>
 
-                            <div class="news_media">
-                                <p>{{ comment.content }}</p>
-                            </div>
 
-                        </div>
-                        <div class="col-sm-2 news_avatar">
-                            <img src="{{ asset(comment.user.avatar.webPath) }}" alt="{{ comment.user.avatar.alt }}"
-                                 width="60" height="45">
                         </div>
                     </div>
                 {% endfor %}
@@ -60,7 +59,7 @@
 
             {% for image in recentImages %}
                 <div class="panel-body">
-                    <div class="news_info col-md-9">
+                    <div class="news_info col-lg-9">
                         <p class="news_name">
                             <strong>
                                 <a href="{{ path("figure", {"id" : image.figure.id}) }}">{{ image.figure.name }}</a>

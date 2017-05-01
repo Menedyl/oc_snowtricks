@@ -2,37 +2,37 @@ parameters:
 
 services:
     app.figure_manager:
-        class: AppBundle\Manager\FigureManager
+        class: AppBundle\Services\FigureManager
         arguments:
             - "@doctrine.orm.entity_manager"
 
     app.user_manager:
-        class: AppBundle\Manager\UserManager
+        class: AppBundle\Services\UserManager
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@security.password_encoder"
 
     app.comment_manager:
-        class: AppBundle\Manager\CommentManager
+        class: AppBundle\Services\CommentManager
         arguments:
             - "@doctrine.orm.entity_manager"
 
     app.groupFigure_manager:
-        class: AppBundle\Manager\GroupFigureManager
+        class: AppBundle\Services\GroupFigureManager
         arguments:
             - "@doctrine.orm.entity_manager"
 
     app.image_manager:
-        class: AppBundle\Manager\ImageManager
+        class: AppBundle\Services\ImageManager
         arguments:
             - "@doctrine.orm.entity_manager"
 
     app.video_manager:
-        class: AppBundle\Manager\VideoManager
+        class: AppBundle\Services\VideoManager
         arguments:
             - "@doctrine.orm.entity_manager"
 
     app.avatar_manager:
-        class: AppBundle\Manager\AvatarManager
+        class: AppBundle\Services\AvatarManager
         arguments:
             - "@doctrine.orm.entity_manager"

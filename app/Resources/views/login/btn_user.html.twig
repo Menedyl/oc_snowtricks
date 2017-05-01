@@ -1,0 +1,33 @@
+<div id="btn_user">
+
+    {% if is_granted('ROLE_USER') %}
+
+        <a href="{{ path('account') }}">
+            <button type="button" class="btn btn-primary btn-sm btn_login_left">
+                {{ app.user.username }}
+            </button>
+        </a>
+
+        <a href="{{ path('app_user_logout') }}">
+            <button type="button" class="btn btn-primary btn-sm btn_login_right">
+                Deconnexion
+            </button>
+        </a>
+
+    {% else %}
+
+        <a href="{{ path('login') }}">
+            <button type="button" class="btn btn-primary btn-sm btn_login_left">
+                Connexion
+            </button>
+        </a>
+
+        <a href="{{ path('signup') }}">
+            <button type="button" class="btn btn-primary btn-sm btn_login_right">
+                Inscription
+            </button>
+        </a>
+
+    {% endif %}
+
+</div>

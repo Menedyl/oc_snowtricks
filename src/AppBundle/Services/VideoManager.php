@@ -1,14 +1,13 @@
 <?php
 
-namespace AppBundle\Manager;
+namespace AppBundle\Services;
 
 
-use AppBundle\Entity\Image;
+use AppBundle\Entity\Video;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ImageManager
+class VideoManager
 {
-
     protected $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -16,9 +15,11 @@ class ImageManager
         $this->em = $em;
     }
 
-    public function add(Image $image)
+    public function add(Video $video)
     {
-        $this->em->persist($image);
+        $this->em->persist($video);
         $this->em->flush();
+
     }
+
 }

@@ -1,0 +1,18 @@
+{% extends "::layout.html.twig" %}
+
+
+{% block stylesheets %}
+
+    {{ parent }}
+    <link href="{{ asset("css/error.css") }}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block body %}
+
+    <p class="error">
+        La page demander n'éxiste pas.
+    </p>
+
+{% endblock %}

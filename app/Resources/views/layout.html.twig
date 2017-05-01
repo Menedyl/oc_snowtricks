@@ -22,48 +22,14 @@
 </head>
 
 <body>
-<div class="container_fluid">
+<div class="container-fluid">
 
     <div class="row">
-        <div class="col-md-offset-2 col-sm-8">
-            <h1 id="title">SnowTricks</h1>
-        </div>
+        <h1 id="title_lg" class="col-sm-push-2 col-sm-8">SnowTricks</h1>
 
-        <div id="login_user" class="col-sm-2">
+        <div id="login_user_sm" class="col-sm-push-2 col-sm-2">
 
-            <div id="btn_user">
-
-                {% if is_granted('ROLE_USER') %}
-
-                    <a href="{{ path('account') }}">
-                        <button type="button" class="btn btn-primary btn-sm btn_login_left">
-                            {{ app.user.username }}
-                        </button>
-                    </a>
-
-                    <a href="{{ path('app_user_logout') }}">
-                        <button type="button" class="btn btn-primary btn-sm btn_login_right">
-                            Deconnexion
-                        </button>
-                    </a>
-
-                {% else %}
-
-                    <a href="{{ path('login') }}">
-                        <button type="button" class="btn btn-primary btn-sm btn_login_left">
-                            Connexion
-                        </button>
-                    </a>
-
-                    <a href="{{ path('signup') }}">
-                        <button type="button" class="btn btn-primary btn-sm btn_login_right">
-                            Inscription
-                        </button>
-                    </a>
-
-                {% endif %}
-
-            </div>
+            {% include ":login:btn_user.html.twig" %}
 
         </div>
 
@@ -71,10 +37,15 @@
     </div>
 
     <div class="row">
-        <div class="col-md-offset-2 col-sm-8 menu">
+        <div class="col-lg-offset-2 col-lg-8 menu">
             {{ render(controller("AppBundle:Default:menu")) }}
         </div>
 
+    </div>
+
+    <div id="login_user_xs" class="col-sm-push-2 col-sm-2">
+
+        {% include ":login:btn_user.html.twig" %}
 
     </div>
 
@@ -88,7 +59,7 @@
     {% endfor %}
 
     <div class="row">
-        <div class="col-sm-3">
+        <div id="news" class="col-sm-3">
 
             {{ render(controller('AppBundle:Default:news')) }}
 

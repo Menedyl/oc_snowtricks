@@ -17,118 +17,164 @@
             pieds posés sur une ligne en travers de la planche, l'un derrière l'autre.
         </p>
 
-        <div id="home_list_figures" class="col-sm-12">
-            <div class="col-sm-6">
-                {% for figure in figures %}
-                    {% if loop.index is not divisible by(2) %}
-                        <div class="home_figure col-sm-12">
-                            <div class="col-sm-4">
+        <div id="home_list_figures" class="col-md-12">
 
-                                <img class="home_image" src="{{ figure.images[0].url }}">
+                <div class="col-lg-6">
+                    {% for figure in figures %}
+                        {% if loop.index is not divisible by(2) %}
+                            <div class="home_figure col-sm-12 col-xs-12">
+                                <div class="col-sm-4 col-xs-5">
 
-                            </div>
+                                    <img class="home_image" src="{{ figure.images[0].url }}">
 
-                            <div class="home_descript_figure col-sm-5">
+                                </div>
 
-                                <a href="{{ path("figure", {'id' : figure.id}) }}"><h4>{{ figure.name }}</h4></a>
+                                <div class="home_descript_figure col-sm-5 col-xs-6">
 
-                                <div class="rating_figure">
+                                    <a href="{{ path("figure", {'id' : figure.id}) }}"><h4>{{ figure.name }}</h4></a>
 
-                                    {% for i in 1..figure.rating %}
-                                        <span class="glyphicon glyphicon-star" style="color: #0088CC"></span>
-                                    {% endfor %}
+                                    <div class="rating_figure">
 
-                                    {% if figure.rating < 5 %}
-
-                                        {% set star_empty = 5 - figure.rating %}
-
-                                        {% for i in 1..star_empty %}
-                                            <span class="glyphicon glyphicon-star-empty"></span>
+                                        {% for i in 1..figure.rating %}
+                                            <span class="glyphicon glyphicon-star" style="color: #0088CC"></span>
                                         {% endfor %}
 
-                                    {% endif %}
+                                        {% if figure.rating < 5 %}
+
+                                            {% set star_empty = 5 - figure.rating %}
+
+                                            {% for i in 1..star_empty %}
+                                                <span class="glyphicon glyphicon-star-empty"></span>
+                                            {% endfor %}
+
+                                        {% endif %}
+                                    </div>
                                 </div>
-                            </div>
 
-                            {% if is_granted('ROLE_USER') %}
+                                {% if is_granted('ROLE_USER') %}
 
-                            <div class="home_action col-sm-3">
+                                    <div class="home_action col-sm-3 col-xs-1">
 
-                                <a href="{{ path("edit_figure", {'id' : figure.id}) }}">
-                                    <button class="home_button_edit">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </button>
-                                </a>
-
-                                <a href="{{ path("delete_figure", {'id' : figure.id}) }}">
-                                    <button class="home_button_del">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </a>
-
-                            </div>
-
-                                {% endif %}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
+                                        <a href="{{ path("edit_figure", {'id' : figure.id}) }}">
+                                            <button class="home_button_edit">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </button>
+                                        </a>
 
 
-            <div class="col-sm-6">
-                {% for figure in figures %}
-                    {% if loop.index is divisible by(2) %}
-                        <div class="home_figure col-sm-12">
-                            <div class="col-sm-4">
-
-                                <img class="home_image" src="{{ figure.images[0].url }}" >
-
-                            </div>
-
-                            <div class="home_descript_figure col-sm-5">
-
-                                <a href="{{ path("figure", {'id' : figure.id}) }}"><h4>{{ figure.name }}</h4></a>
-
-                                <div class="rating_figure">
-
-                                    {% for i in 1..figure.rating %}
-                                        <span class="glyphicon glyphicon-star" style="color: #0088CC"></span>
-                                    {% endfor %}
-
-                                    {% if figure.rating < 5 %}
-
-                                        {% set star_empty = 5 - figure.rating %}
-
-                                        {% for i in 1..star_empty %}
-                                            <span class="glyphicon glyphicon-star-empty"></span>
-                                        {% endfor %}
-
-                                    {% endif %}
-                                </div>
-                            </div>
-
-                            {% if is_granted('ROLE_USER') %}
-
-                                <div class="home_action col-sm-3">
-
-                                    <a href="{{ path("edit_figure", {'id' : figure.id}) }}">
-                                        <button class="home_button_edit">
-                                            <span class="glyphicon glyphicon-pencil"></span>
-                                        </button>
-                                    </a>
-
-                                    <a href="{{ path("delete_figure", {'id' : figure.id}) }}">
-                                        <button class="home_button_del">
+                                        <button data-toggle="modal" href="#sup_figure{{ figure.id }}" class="home_button_del">
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </button>
-                                    </a>
-                                </div>
-                            {% endif %}
 
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
+                                        <div class="modal" id="sup_figure{{ figure.id }}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+
+                                                        <button type="button" class="close" data-dismiss="modal">x
+                                                        </button>
+                                                        <h4 class="modal-title">Confirmation</h4>
+
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <p>
+                                                            Voulez-vous supprimer la figure "{{ figure.name }} ?"
+                                                        </p>
+                                                        <a href="{{ path("delete_figure", {'id' : figure.id}) }}">Supprimer</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+
+                <div class="col-lg-6">
+
+                    {% for figure in figures %}
+                        {% if loop.index is divisible by(2) %}
+                            <div class="home_figure col-sm-12 col-xs-12">
+                                <div class="col-sm-4 col-xs-5">
+
+                                    <img class="home_image" src="{{ figure.images[0].url }}">
+
+                                </div>
+
+                                <div class="home_descript_figure col-sm-5 col-xs-6">
+
+                                    <a href="{{ path("figure", {'id' : figure.id}) }}"><h4>{{ figure.name }}</h4></a>
+
+                                    <div class="rating_figure">
+
+                                        {% for i in 1..figure.rating %}
+                                            <span class="glyphicon glyphicon-star" style="color: #0088CC"></span>
+                                        {% endfor %}
+
+                                        {% if figure.rating < 5 %}
+
+                                            {% set star_empty = 5 - figure.rating %}
+
+                                            {% for i in 1..star_empty %}
+                                                <span class="glyphicon glyphicon-star-empty"></span>
+                                            {% endfor %}
+
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                {% if is_granted('ROLE_USER') %}
+
+                                    <div class="home_action col-sm-3 col-xs-1">
+
+                                        <a href="{{ path("edit_figure", {'id' : figure.id}) }}">
+                                            <button class="home_button_edit">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </button>
+                                        </a>
+
+                                        <button data-toggle="modal" href="#sup_figure{{ figure.id }}" class="home_button_del">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+
+                                        <div class="modal" id="sup_figure{{ figure.id }}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+
+                                                        <button type="button" class="close" data-dismiss="modal">x
+                                                        </button>
+                                                        <h4 class="modal-title">Confirmation</h4>
+
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <p>
+                                                            Voulez-vous supprimer la figure "{{ figure.name }} ?"
+                                                        </p>
+                                                        <a href="{{ path("delete_figure", {'id' : figure.id}) }}">Supprimer</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
         </div>
 
         <div id="home_pagination">

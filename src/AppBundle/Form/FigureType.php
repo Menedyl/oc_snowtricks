@@ -27,9 +27,9 @@ class FigureType extends AbstractType
                         'message' => 'Ce champ ne peut être vide.'
                     )),
                     new Length(array(
-                        'min' => 5,
+                        'min' => 4,
                         'max' => 40,
-                        'minMessage' => '5 caractères minimum.',
+                        'minMessage' => '4 caractères minimum.',
                         'maxMessage' => '40 caractères maximum.')),
                 )
             ))
