@@ -50,3 +50,9 @@ legend {
     color: red;
 }
 
+
+@media (min-width: 650px){
+    #line_break_xs{
+       display: none;
+    }
+}

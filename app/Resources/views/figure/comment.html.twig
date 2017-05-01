@@ -22,7 +22,7 @@
         {% for comment in listComments %}
 
             <div class="row">
-                <div class="col-sm-9 comment_figure">
+                <div class="col-lg-9 comment_figure">
                     <div class="comment_info_figure">
                         <p class="comment_auteur_figure">
                             {{ comment.user.username }} <em>Poster
@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-2 comment_avatar">
+                <div class="col-lg-2 comment_avatar">
                     <img src="{{ asset(comment.user.avatar.webPath) }}" alt="{{ comment.user.avatar.alt }}" width="75" height="52">
                 </div>
             </div>

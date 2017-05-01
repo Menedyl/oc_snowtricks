@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Manager;
+namespace AppBundle\Services;
 
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;

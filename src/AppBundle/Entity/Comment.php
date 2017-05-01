@@ -31,7 +31,7 @@ class Comment
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateCreate", type="datetime")
+     * @ORM\Column(name="date_create", type="datetime")
      */
     private $dateCreate;
 

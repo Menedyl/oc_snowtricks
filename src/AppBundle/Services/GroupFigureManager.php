@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Manager;
+namespace AppBundle\Services;
 
 
-use AppBundle\Entity\Avatar;
+use AppBundle\Entity\GroupFigure;
 use Doctrine\ORM\EntityManagerInterface;
 
-class AvatarManager
+class GroupFigureManager
 {
 
     protected $em;
@@ -16,10 +16,11 @@ class AvatarManager
         $this->em = $em;
     }
 
-    public function add(Avatar $avatar)
+    public function add(GroupFigure $groupFigure)
     {
-        $this->em->persist($avatar);
+        $this->em->persist($groupFigure);
         $this->em->flush();
+
     }
 
 }
