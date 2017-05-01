@@ -101,7 +101,6 @@ class Avatar
     {
 
         if ($this->file === null) {
-
             copy(__DIR__ . '/../../../web/uploads/img/default/DefaultAvatar.png',
                 __DIR__ . '/../../../web/uploads/img/default/Avatar.png');
 

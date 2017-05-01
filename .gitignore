@@ -43,7 +43,6 @@
 # Backup entities generated with doctrine:generate:entities command
 */Entity/*~
 
-.idea
 /composer.phar
 /projet/
 /web/config.php
