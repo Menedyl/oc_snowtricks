@@ -37,6 +37,10 @@ class GroupFigure
      */
     private $figures;
 
+    public function __construct()
+    {
+        $this->figures = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -49,16 +53,6 @@ class GroupFigure
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
      * Get name
      *
      * @return string
@@ -68,10 +62,14 @@ class GroupFigure
         return $this->name;
     }
 
-
-    public function __construct()
+    /**
+     * Set name
+     *
+     * @param string $name
+     */
+    public function setName($name)
     {
-        $this->figures = new ArrayCollection();
+        $this->name = $name;
     }
 
     /**

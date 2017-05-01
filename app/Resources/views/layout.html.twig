@@ -42,7 +42,7 @@
                     </a>
 
                     <a href="{{ path('app_user_logout') }}">
-                        <button  type="button" class="btn btn-primary btn-sm btn_login_right">
+                        <button type="button" class="btn btn-primary btn-sm btn_login_right">
                             Deconnexion
                         </button>
                     </a>
@@ -50,16 +50,16 @@
                 {% else %}
 
                     <a href="{{ path('login') }}">
-                    <button type="button" class="btn btn-primary btn-sm btn_login_left">
-                        Connexion
-                    </button>
-                </a>
+                        <button type="button" class="btn btn-primary btn-sm btn_login_left">
+                            Connexion
+                        </button>
+                    </a>
 
-                <a href="{{ path('signup') }}">
-                    <button  type="button" class="btn btn-primary btn-sm btn_login_right">
-                        Inscription
-                    </button>
-                </a>
+                    <a href="{{ path('signup') }}">
+                        <button type="button" class="btn btn-primary btn-sm btn_login_right">
+                            Inscription
+                        </button>
+                    </a>
 
                 {% endif %}
 
@@ -70,7 +70,14 @@
 
     </div>
 
-    {{ render(controller("AppBundle:Default:menu")) }}
+    <div class="row">
+        <div class="col-md-offset-2 col-sm-8 menu">
+            {{ render(controller("AppBundle:Default:menu")) }}
+        </div>
+
+
+    </div>
+
 
     {% for message in app.session.flashbag.get('info') %}
 
