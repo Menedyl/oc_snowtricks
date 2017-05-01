@@ -53,7 +53,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/home/{page}", name="home", defaults={"page" : 1}, requirements={"page" : "\d+"})
+     * @Route("/{page}", name="home", defaults={"page" : 1}, requirements={"page" : "\d+"})
      */
     public function homeAction($page)
     {
