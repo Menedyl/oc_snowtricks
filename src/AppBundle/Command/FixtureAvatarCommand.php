@@ -23,5 +23,4 @@ class FixtureAvatarCommand extends ContainerAwareCommand
         $output->writeln('Ajout des avatars');
 
     }
-
 }

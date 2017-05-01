@@ -46,3 +46,4 @@
 .idea
 /composer.phar
 /projet/
+/web/config.php

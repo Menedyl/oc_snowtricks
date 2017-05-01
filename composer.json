@@ -1,6 +1,7 @@
 {
     "name": "menedyl/symfony",
     "license": "proprietary",
+    "description": "Projet 6 d'OpenClassrooms",
     "type": "project",
     "autoload": {
         "psr-4": {

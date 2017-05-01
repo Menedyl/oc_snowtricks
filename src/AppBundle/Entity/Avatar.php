@@ -147,7 +147,7 @@ class Avatar
     /**
      * @ORM\PreRemove()
      */
-    public function PreRemoveUpload()
+    public function preRemoveUpload()
     {
         $this->tempFilename = $this->getUploadRootDir() . $this->id . '.' . $this->url;
     }

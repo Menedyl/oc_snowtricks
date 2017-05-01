@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Figure;
 use AppBundle\Entity\GroupFigure;
-use AppBundle\Form\FigureType;
+use AppBundle\Form\Type\FigureType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -118,6 +118,5 @@ class FigureController extends Controller
         ));
 
     }
-
 
 }
